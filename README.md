@@ -8,6 +8,7 @@ This repository is also set up as a GitHub learning example: you can use it to u
 - [Features](#features)
 - [Quick Start (Local)](#quick-start-local)
 - [Run as an Installed Package](#run-as-an-installed-package)
+- [Run with Docker](#run-with-docker)
 - [Development Commands](#development-commands)
 - [Project Structure](#project-structure)
 - [Environment](#environment)
@@ -52,6 +53,20 @@ Alternative:
 ```powershell
 python -m app
 ```
+
+## Run with Docker
+Build and run locally with Docker:
+
+```powershell
+docker build -t flaskappenhanced:local .
+docker run --rm -p 8000:8000 -e SECRET_KEY=change-me flaskappenhanced:local
+```
+
+Then visit:
+- `http://127.0.0.1:8000/`
+- `http://127.0.0.1:8000/health`
+
+This repo also publishes a container image to GitHub Container Registry (GHCR) via `.github/workflows/package.yml`.
 
 ## Development Commands
 ```powershell
@@ -117,6 +132,15 @@ Start here:
 - `.github/PULL_REQUEST_TEMPLATE.md` (PR structure)
 - `.github/ISSUE_TEMPLATE/` (issue forms)
 - `SECURITY.md` (security policy)
+
+## GitHub Setup Status (Example Repo)
+This repository is configured as a practical GitHub example and includes:
+
+- `About` section with description, homepage, and topics
+- Branch protection on `main` (PR review + required CI)
+- CI, Release, and GHCR package workflows
+- Dependabot alerts and automated security fixes
+- Issue/PR templates, `CODEOWNERS`, `CONTRIBUTING.md`, and `SECURITY.md`
 
 ## GitHub Page Anatomy (Quick Reference)
 When you open this repository on GitHub, you will usually see:
