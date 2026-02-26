@@ -19,6 +19,7 @@ Then visit http://127.0.0.1:5000/ and http://127.0.0.1:5000/health.
 
 ## Environment
 Copy `.env.example` to `.env` and update values as needed.
+The app will load `.env` automatically if present (via `python-dotenv`).
 
 ## Run in production
 ```powershell
