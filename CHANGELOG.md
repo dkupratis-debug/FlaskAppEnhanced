@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.1] - 2026-02-26
+
+### Changed
+- Bumped `Flask` from `3.0.2` to `3.1.3` via Dependabot PR #1
+- Expanded `README.md` with Docker run instructions and GitHub setup status notes
+- Added GHCR package workflow and Docker image support
+
+### Security
+- Enabled Dependabot vulnerability alerts and automated security fixes on GitHub
+- Added branch protection for `main` (required CI check + PR review)
+
 ## [0.2.0] - 2026-02-26
 
 ### Added
