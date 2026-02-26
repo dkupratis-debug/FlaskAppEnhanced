@@ -27,6 +27,8 @@ Quick links:
 - [Troubleshooting](#troubleshooting)
 - [Learning Path](#learning-path)
 - [Sharing for Learning](#sharing-for-learning)
+- [Public Launch Checklist](#public-launch-checklist)
+- [Analytics and Privacy](#analytics-and-privacy)
 - [Learn GitHub Using This Repo](#learn-github-using-this-repo)
 - [GitHub Page Anatomy (Quick Reference)](#github-page-anatomy-quick-reference)
 - [Security Notes](#security-notes)
@@ -198,6 +200,22 @@ To share this repo with learners effectively:
 
 Read `docs/SAFE_SHARING.md` before posting publicly (especially on social media).
 
+## Public Launch Checklist
+Before making this repo public or sharing it widely, use:
+- `docs/PUBLIC_LAUNCH_CHECKLIST.md`
+- `docs/SAFE_SHARING.md`
+
+These docs explain how to share safely while keeping your repo protected.
+
+## Analytics and Privacy
+If you want to understand how people use the repo or demo app, start with:
+- `docs/ANALYTICS_AND_PRIVACY.md`
+
+Short version:
+- Use GitHub `Insights -> Traffic` for repo-level traffic (views/clones/referrers)
+- Use app logs for demo usage patterns
+- Prefer aggregate, privacy-first analytics over invasive user tracking
+
 ## Learn GitHub Using This Repo
 Start here:
 - `README.md` (project overview)
@@ -207,6 +225,8 @@ Start here:
 - `docs/ARCHITECTURE.md` (request flow and components)
 - `docs/VERSIONING_AND_RELEASES.md` (version/tag/release flow)
 - `docs/SAFE_SHARING.md` (how to share safely)
+- `docs/PUBLIC_LAUNCH_CHECKLIST.md` (how to prepare for public sharing)
+- `docs/ANALYTICS_AND_PRIVACY.md` (tracking usage ethically)
 - `docs/DEPLOY_DEMO.md` (how to get a live demo URL)
 - `docs/exercises/CODEOWNERS_REVIEW_EXERCISE.md` (guided practice PR)
 - `.github/workflows/ci.yml` (automation)
