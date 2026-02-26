@@ -34,3 +34,13 @@ pip install -r requirements-dev.txt
 ruff check .
 pytest
 ```
+
+## Security additions
+This scaffold includes:
+- Rate limiting via `Flask-Limiter` (defaults from `RATELIMIT_DEFAULT`).
+- CSRF protection via `Flask-WTF` for form submissions.
+- Request IDs added to logs/headers via `X-Request-Id`.
+
+### Tuning rate limits
+Set `RATELIMIT_DEFAULT` (e.g., `100 per hour`) and switch storage to Redis in production:
+`RATELIMIT_STORAGE_URI=redis://:password@host:6379/0`
