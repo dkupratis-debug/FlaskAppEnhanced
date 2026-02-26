@@ -23,6 +23,7 @@ Quick links:
 - [Project Structure](#project-structure)
 - [Environment](#environment)
 - [Production Run (Example)](#production-run-example)
+- [Deploy a Live Demo](#deploy-a-live-demo)
 - [Troubleshooting](#troubleshooting)
 - [Learning Path](#learning-path)
 - [Sharing for Learning](#sharing-for-learning)
@@ -134,6 +135,13 @@ $env:SECRET_KEY="change-me"
 gunicorn -c gunicorn.conf.py wsgi:app
 ```
 
+## Deploy a Live Demo
+This repository includes a starter Render blueprint in `render.yaml` so you can create a real demo URL and add it to GitHub `About -> Website`.
+
+Start here:
+- `docs/DEPLOY_DEMO.md` (deployment steps and safety notes)
+- `render.yaml` (starter configuration)
+
 ## Troubleshooting
 ### GitHub shows an older commit
 GitHub only shows new code after `git add` + `git commit` + `git push`.
@@ -163,6 +171,7 @@ Use this repo as a hands-on GitHub + Flask lab.
 6. Watch the CI run in GitHub Actions
 7. Merge the PR (if allowed in your fork)
 8. Inspect the commit history, release page, and package workflow
+9. (Optional) Deploy a demo app and add the URL to the repo `About` section
 
 ### Reviewer path
 1. Open a PR
@@ -187,12 +196,19 @@ To share this repo with learners effectively:
    - `Packages` section
 5. Use forks for practice so they can safely merge in their own copy
 
+Read `docs/SAFE_SHARING.md` before posting publicly (especially on social media).
+
 ## Learn GitHub Using This Repo
 Start here:
 - `README.md` (project overview)
 - `CONTRIBUTING.md` (branching, commit, PR flow)
 - `docs/GITHUB_GUIDE.md` (GitHub UI walkthrough)
 - `docs/PR_REVIEW_CHECKLIST.md` (how to review PRs)
+- `docs/ARCHITECTURE.md` (request flow and components)
+- `docs/VERSIONING_AND_RELEASES.md` (version/tag/release flow)
+- `docs/SAFE_SHARING.md` (how to share safely)
+- `docs/DEPLOY_DEMO.md` (how to get a live demo URL)
+- `docs/exercises/CODEOWNERS_REVIEW_EXERCISE.md` (guided practice PR)
 - `.github/workflows/ci.yml` (automation)
 - `.github/PULL_REQUEST_TEMPLATE.md` (PR structure)
 - `.github/ISSUE_TEMPLATE/` (issue forms)
@@ -207,6 +223,12 @@ This repository is configured as a practical GitHub example and includes:
 - Dependabot alerts and automated security fixes
 - Issue/PR templates, `CODEOWNERS`, `CONTRIBUTING.md`, and `SECURITY.md`
 - `CODE_OF_CONDUCT.md` and `SUPPORT.md`
+
+## Visual Walkthrough Assets
+Screenshot/GIF placeholders and capture plan live in:
+- `docs/images/README.md`
+
+Add screenshots there to make the GitHub guide more visual for friends and learners.
 
 ### Maintainer Workflow (Current)
 Because `main` is protected (including admins), changes should go through:

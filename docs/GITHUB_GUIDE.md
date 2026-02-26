@@ -2,6 +2,13 @@
 
 This guide explains where to go in GitHub and what each part means, using `FlaskAppEnhanced` as the example.
 
+## Visual Walkthrough (Optional but Recommended)
+To make this guide more intuitive for learners, add screenshots/GIFs in `docs/images/` and link them from this file.
+
+See:
+- `docs/images/README.md` (suggested filenames + capture checklist)
+- `docs/exercises/CODEOWNERS_REVIEW_EXERCISE.md` (practice PR exercise)
+
 ## 1. Code Tab (Main Repository Page)
 This is the default page you see.
 
@@ -16,6 +23,8 @@ Start with these files:
 - `CONTRIBUTING.md` for workflow
 - `.github/workflows/ci.yml` for automation
 - `SECURITY.md` for security policy
+- `docs/ARCHITECTURE.md` for app request flow
+- `docs/VERSIONING_AND_RELEASES.md` for release process
 
 ## 1.1 Right Sidebar (Repository Info)
 GitHub shows a sidebar with quick links and repo stats. These often include:
@@ -76,6 +85,10 @@ What to include in a good PR:
 - How it was tested
 - Risks / follow-ups
 
+Practice this with:
+- `docs/exercises/CODEOWNERS_REVIEW_EXERCISE.md`
+- `docs/PR_REVIEW_CHECKLIST.md`
+
 ## 5. Issues
 Use issues to track bugs, tasks, and ideas.
 
@@ -119,6 +132,8 @@ Important settings for real projects:
 - Required status checks (CI must pass)
 - PR review requirements
 - Secret management for Actions
+- Repo metadata (About description, website, topics)
+- Security settings (Dependabot alerts, automated security fixes)
 
 ## 10. How to Understand a Repo Quickly
 Use this checklist:
@@ -129,6 +144,7 @@ Use this checklist:
 5. Run tests locally
 6. Open recent commits
 7. Read open PRs/issues
+8. Review `docs/SAFE_SHARING.md` before sharing publicly
 
 ## 11. GitHub Terms (Quick Definitions)
 - **Repo**: Project storage (code, docs, issues, PRs)
