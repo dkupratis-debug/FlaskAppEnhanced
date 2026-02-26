@@ -40,6 +40,7 @@ This scaffold includes:
 - Rate limiting via `Flask-Limiter` (defaults from `RATELIMIT_DEFAULT`).
 - CSRF protection via `Flask-WTF` for form submissions.
 - Request IDs added to logs/headers via `X-Request-Id`.
+ - JSON logs for easy ingestion.
 
 ### Tuning rate limits
 Set `RATELIMIT_DEFAULT` (e.g., `100 per hour`) and switch storage to Redis in production:
@@ -48,3 +49,6 @@ Set `RATELIMIT_DEFAULT` (e.g., `100 per hour`) and switch storage to Redis in pr
 ### CSRF in templates
 `layout.html` includes a CSRF meta tag you can read in JS. For HTML forms, add:
 `<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">`
+
+### Sample form
+Visit `/submit` to see a CSRF-protected form that posts to `/submit`.

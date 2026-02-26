@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>Sample Form</h1>
+  <form method="post" action="/submit" class="card">
+    <label for="name">Name</label>
+    <input id="name" name="name" type="text" placeholder="Your name" />
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    <button type="submit">Send</button>
+  </form>
+{% endblock %}

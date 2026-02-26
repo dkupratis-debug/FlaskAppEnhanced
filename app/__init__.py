@@ -1,3 +1,4 @@
+import json
 import logging
 import os
 import time
@@ -17,6 +18,21 @@ class RequestIdFilter(logging.Filter):
         return True
 
 
+class JsonLogFormatter(logging.Formatter):
+    def format(self, record):
+        payload = {
+            "timestamp": self.formatTime(record, self.datefmt),
+            "level": record.levelname,
+            "logger": record.name,
+            "message": record.getMessage(),
+            "request_id": getattr(record, "request_id", "-"),
+        }
+        for key in ("method", "path", "status", "duration_ms", "remote"):
+            if hasattr(record, key):
+                payload[key] = getattr(record, key)
+        return json.dumps(payload, separators=(",", ":"))
+
+
 def create_app():
     app = Flask(__name__)
     env = os.environ.get("FLASK_ENV", "development").lower()
@@ -24,10 +40,7 @@ def create_app():
     app.config.from_object(config_obj)
 
     handler = logging.StreamHandler()
-    formatter = logging.Formatter(
-        "%(asctime)s %(levelname)s %(name)s request_id=%(request_id)s %(message)s"
-    )
-    handler.setFormatter(formatter)
+    handler.setFormatter(JsonLogFormatter())
     handler.addFilter(RequestIdFilter())
     app.logger.handlers.clear()
     app.logger.addHandler(handler)
@@ -52,18 +65,29 @@ def create_app():
         response.headers.setdefault("X-Request-Id", g.request_id)
         duration_ms = int((time.time() - g.start_time) * 1000)
         app.logger.info(
-            "method=%s path=%s status=%s duration_ms=%s remote=%s",
-            request.method,
-            request.path,
-            response.status_code,
-            duration_ms,
-            request.headers.get("X-Forwarded-For", request.remote_addr),
+            "request",
+            extra={
+                "method": request.method,
+                "path": request.path,
+                "status": response.status_code,
+                "duration_ms": duration_ms,
+                "remote": request.headers.get("X-Forwarded-For", request.remote_addr),
+            },
         )
         return response
 
     @app.get("/")
     def home():
         return render_template("index.html")
+
+    @app.get("/submit")
+    def submit_form():
+        return render_template("form.html")
+
+    @app.post("/submit")
+    def handle_submit():
+        name = request.form.get("name", "anonymous").strip() or "anonymous"
+        return jsonify(message=f"Thanks, {name}.")
 
     @app.get("/health")
     @limiter.exempt
