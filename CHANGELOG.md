@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.3] - 2026-02-26
+
+### Fixed
+- Added a release workflow guard to fail if Git tag and `pyproject.toml` version do not match
+
+### Added
+- `docs/PR_REVIEW_CHECKLIST.md` for teaching GitHub/code review workflow
+- `CODE_OF_CONDUCT.md`
+- `SUPPORT.md`
+
+### Changed
+- Improved `README.md` with learning path, sharing guidance, and reviewer references
+
+## [0.2.2] - 2026-02-26
+
+### Changed
+- Polished `README.md` with badges, GHCR examples, and maintainer workflow guidance
+- Documentation-only release tag (note: package assets remained `0.2.1`)
+
 ## [0.2.1] - 2026-02-26
 
 ### Changed

@@ -24,6 +24,8 @@ Quick links:
 - [Environment](#environment)
 - [Production Run (Example)](#production-run-example)
 - [Troubleshooting](#troubleshooting)
+- [Learning Path](#learning-path)
+- [Sharing for Learning](#sharing-for-learning)
 - [Learn GitHub Using This Repo](#learn-github-using-this-repo)
 - [GitHub Page Anatomy (Quick Reference)](#github-page-anatomy-quick-reference)
 - [Security Notes](#security-notes)
@@ -149,11 +151,48 @@ This repo disables pytest's cache provider in `pyproject.toml` to avoid noisy pe
 - `Releases` in this repo contains versioned source/wheel artifacts (for example `v0.2.0`)
 - `Packages` is for registry-published packages (this repo publishes a container image to GHCR via Actions)
 
+## Learning Path
+Use this repo as a hands-on GitHub + Flask lab.
+
+### Beginner path (60-90 minutes)
+1. Read `README.md` and `docs/GITHUB_GUIDE.md`
+2. Run the app locally and open `/health`
+3. Run `pytest` and `ruff check .`
+4. Create a branch and make a tiny README change
+5. Push branch and open a PR
+6. Watch the CI run in GitHub Actions
+7. Merge the PR (if allowed in your fork)
+8. Inspect the commit history, release page, and package workflow
+
+### Reviewer path
+1. Open a PR
+2. Use `docs/PR_REVIEW_CHECKLIST.md`
+3. Review code, tests, config, docs, and security impact
+4. Check CI and release/package workflows
+
+## Sharing for Learning
+To share this repo with learners effectively:
+
+1. Send the repo link plus a short goal:
+   - "Learn GitHub PRs, Actions, Releases, and Packages using a small Flask app."
+2. Tell learners where to start:
+   - `README.md`
+   - `docs/GITHUB_GUIDE.md`
+   - `CONTRIBUTING.md`
+3. Give them a first task:
+   - "Change a README line and open a PR"
+4. Ask them to inspect:
+   - `Actions` tab
+   - `Releases` tab
+   - `Packages` section
+5. Use forks for practice so they can safely merge in their own copy
+
 ## Learn GitHub Using This Repo
 Start here:
 - `README.md` (project overview)
 - `CONTRIBUTING.md` (branching, commit, PR flow)
 - `docs/GITHUB_GUIDE.md` (GitHub UI walkthrough)
+- `docs/PR_REVIEW_CHECKLIST.md` (how to review PRs)
 - `.github/workflows/ci.yml` (automation)
 - `.github/PULL_REQUEST_TEMPLATE.md` (PR structure)
 - `.github/ISSUE_TEMPLATE/` (issue forms)
@@ -167,6 +206,7 @@ This repository is configured as a practical GitHub example and includes:
 - CI, Release, and GHCR package workflows
 - Dependabot alerts and automated security fixes
 - Issue/PR templates, `CODEOWNERS`, `CONTRIBUTING.md`, and `SECURITY.md`
+- `CODE_OF_CONDUCT.md` and `SUPPORT.md`
 
 ### Maintainer Workflow (Current)
 Because `main` is protected (including admins), changes should go through:
