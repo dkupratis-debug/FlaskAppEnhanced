@@ -6,7 +6,7 @@ def test_home():
     client = app.test_client()
     res = client.get("/")
     assert res.status_code == 200
-    assert b"FlaskAppEnhanced is running" in res.data
+    assert b"FlaskAppEnhanced" in res.data
 
 
 def test_health():

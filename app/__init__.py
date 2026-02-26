@@ -34,6 +34,19 @@ class JsonLogFormatter(logging.Formatter):
         return json.dumps(payload, separators=(",", ":"))
 
 
+def _normalize_limits(value):
+    if value is None:
+        return "200 per day;50 per hour"
+    if isinstance(value, (list, tuple)):
+        return value
+    if isinstance(value, str):
+        s = value.strip()
+        if s.isdigit():
+            return f"{s} per day"
+        return s
+    return "200 per day;50 per hour"
+
+
 def create_app():
     app = Flask(__name__)
     env = os.environ.get("FLASK_ENV", "development").lower()
@@ -55,11 +68,17 @@ def create_app():
 
     csrf = CSRFProtect(app)
 
+    app.config["RATELIMIT_DEFAULT"] = _normalize_limits(app.config.get("RATELIMIT_DEFAULT"))
+
+    limits = app.config.get("RATELIMIT_DEFAULT")
+    if isinstance(limits, str):
+        limits = [limits]
+
     limiter = Limiter(
         get_remote_address,
         app=app,
-        default_limits=app.config.get("RATELIMIT_DEFAULT"),
-        storage_uri=rate_limit_storage_uri(),
+        default_limits=limits,
+        storage_uri=rate_limit_storage_uri(app.config, app.logger),
     )
 
     @app.before_request
