@@ -3,6 +3,7 @@ import logging
 import os
 import time
 import uuid
+from logging.handlers import RotatingFileHandler
 
 from flask import Flask, jsonify, g, render_template, request
 from flask_limiter import Limiter
@@ -39,14 +40,20 @@ def create_app():
     config_obj = "config.ProductionConfig" if env == "production" else "config.DevelopmentConfig"
     app.config.from_object(config_obj)
 
-    handler = logging.StreamHandler()
+    log_file = os.environ.get("LOG_FILE")
+    if log_file:
+        max_bytes = int(os.environ.get("LOG_MAX_BYTES", "10485760"))
+        backup_count = int(os.environ.get("LOG_BACKUP_COUNT", "5"))
+        handler = RotatingFileHandler(log_file, maxBytes=max_bytes, backupCount=backup_count)
+    else:
+        handler = logging.StreamHandler()
     handler.setFormatter(JsonLogFormatter())
     handler.addFilter(RequestIdFilter())
     app.logger.handlers.clear()
     app.logger.addHandler(handler)
     app.logger.setLevel(logging.INFO)
 
-    CSRFProtect(app)
+    csrf = CSRFProtect(app)
 
     limiter = Limiter(
         get_remote_address,
@@ -88,6 +95,13 @@ def create_app():
     def handle_submit():
         name = request.form.get("name", "anonymous").strip() or "anonymous"
         return jsonify(message=f"Thanks, {name}.")
+
+    @app.post("/api/echo")
+    @limiter.limit("30 per minute")
+    @csrf.exempt
+    def api_echo():
+        payload = request.get_json(silent=True) or {}
+        return jsonify(received=payload)
 
     @app.get("/health")
     @limiter.exempt

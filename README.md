@@ -40,7 +40,8 @@ This scaffold includes:
 - Rate limiting via `Flask-Limiter` (defaults from `RATELIMIT_DEFAULT`).
 - CSRF protection via `Flask-WTF` for form submissions.
 - Request IDs added to logs/headers via `X-Request-Id`.
- - JSON logs for easy ingestion.
+- JSON logs for easy ingestion.
+ - JSON API example with CSRF exemption.
 
 ### Tuning rate limits
 Set `RATELIMIT_DEFAULT` (e.g., `100 per hour`) and switch storage to Redis in production:
@@ -52,3 +53,9 @@ Set `RATELIMIT_DEFAULT` (e.g., `100 per hour`) and switch storage to Redis in pr
 
 ### Sample form
 Visit `/submit` to see a CSRF-protected form that posts to `/submit`.
+
+### JSON API example
+POST `/api/echo` with JSON to see echo behavior. This route is CSRF-exempt by design.
+
+### Log rotation
+Set `LOG_FILE` to enable rotating file logs. Use `LOG_MAX_BYTES` and `LOG_BACKUP_COUNT` to tune size/retention.
