@@ -35,6 +35,27 @@ ruff check .
 pytest
 ```
 
+## Task runners
+Makefile:
+```bash
+make install
+make dev
+make test
+make lint
+make run
+make prod
+```
+
+PowerShell:
+```powershell
+.\tasks.ps1 install
+.\tasks.ps1 dev
+.\tasks.ps1 test
+.\tasks.ps1 lint
+.\tasks.ps1 run
+.\tasks.ps1 prod
+```
+
 ## Security additions
 This scaffold includes:
 - Rate limiting via `Flask-Limiter` (defaults from `RATELIMIT_DEFAULT`).
