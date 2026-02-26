@@ -1,0 +1,14 @@
+[project]
+name = "FlaskAppEnhanced"
+version = "0.1.0"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
