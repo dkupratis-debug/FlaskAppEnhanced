@@ -1,13 +1,19 @@
 # FlaskAppEnhanced
 
-Minimal Flask app scaffold.
+Small Flask app scaffold with basic security features, tests, and CI.
+
+This repository is also set up as a GitHub learning example: you can use it to understand common repo files, workflows, and where to click in GitHub.
 
 ## Features
 - Homepage at `/`
 - Health check at `/health`
-- Config scaffold in `config.py`
+- CSRF-protected form at `/submit`
+- JSON API example at `/api/echo`
+- Rate limiting via `Flask-Limiter`
+- Security headers and request IDs
+- GitHub Actions CI (`.github/workflows/ci.yml`)
 
-## Run locally
+## Quick Start (Local)
 ```powershell
 python -m venv venv
 .\venv\Scripts\activate
@@ -15,13 +21,32 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Then visit http://127.0.0.1:5000/ and http://127.0.0.1:5000/health.
+Visit:
+- `http://127.0.0.1:5000/`
+- `http://127.0.0.1:5000/health`
+
+## Development Commands
+```powershell
+pip install -r requirements-dev.txt
+ruff check .
+pytest
+```
+
+Task runners:
+- `Makefile` for Unix/macOS (`make test`, `make lint`, etc.)
+- `tasks.ps1` for PowerShell (`.\tasks.ps1 test`, `.\tasks.ps1 lint`, etc.)
 
 ## Environment
-Copy `.env.example` to `.env` and update values as needed.
-The app will load `.env` automatically if present (via `python-dotenv`).
+Copy `.env.example` to `.env` and update values as needed. `python-dotenv` loads `.env` automatically if installed.
 
-## Run in production
+Useful variables:
+- `FLASK_ENV=development|production`
+- `SECRET_KEY=...`
+- `RATELIMIT_DEFAULT=200 per day;50 per hour`
+- `RATELIMIT_STORAGE_URI=memory://` (use Redis in production)
+- `LOG_FILE=logs/app.log`
+
+## Production Run (Example)
 ```powershell
 pip install -r requirements.txt
 $env:FLASK_ENV="production"
@@ -29,59 +54,36 @@ $env:SECRET_KEY="change-me"
 gunicorn -c gunicorn.conf.py wsgi:app
 ```
 
-## Dev tooling
-```powershell
-pip install -r requirements-dev.txt
-ruff check .
-pytest
-```
+## Learn GitHub Using This Repo
+Start here:
+- `README.md` (project overview)
+- `CONTRIBUTING.md` (branching, commit, PR flow)
+- `docs/GITHUB_GUIDE.md` (GitHub UI walkthrough)
+- `.github/workflows/ci.yml` (automation)
+- `.github/PULL_REQUEST_TEMPLATE.md` (PR structure)
+- `.github/ISSUE_TEMPLATE/` (issue forms)
+- `SECURITY.md` (security policy)
 
-## Task runners
-Makefile:
-```bash
-make install
-make dev
-make test
-make lint
-make run
-make prod
-```
+## GitHub Page Anatomy (Quick Reference)
+When you open this repository on GitHub, you will usually see:
 
-PowerShell:
-```powershell
-.\tasks.ps1 install
-.\tasks.ps1 dev
-.\tasks.ps1 test
-.\tasks.ps1 lint
-.\tasks.ps1 run
-.\tasks.ps1 prod
-```
+- `README`
+  - Project overview and setup instructions (`README.md`)
+- `Security policy`
+  - Vulnerability reporting guidance (`SECURITY.md`)
+- `Activity`
+  - Recent repository changes and maintenance signals
+- `Stars`
+  - How many users bookmarked/liked the repo
+- `Watchers`
+  - How many users are subscribed to repo notifications
+- `Forks`
+  - How many copies of the repo exist in other accounts (often used for contributions)
 
-## Security additions
-This scaffold includes:
-- Rate limiting via `Flask-Limiter` (defaults from `RATELIMIT_DEFAULT`).
-- CSRF protection via `Flask-WTF` for form submissions.
-- Request IDs added to logs/headers via `X-Request-Id`.
-- JSON logs for easy ingestion.
- - JSON API example with CSRF exemption.
+These counts (`Stars`, `Watchers`, `Forks`) are GitHub UI stats and update automatically over time.
 
-### Tuning rate limits
-Set `RATELIMIT_DEFAULT` (e.g., `100 per hour`) and switch storage to Redis in production:
-`RATELIMIT_STORAGE_URI=redis://:password@host:6379/0`
-
-### CSRF in templates
-`layout.html` includes a CSRF meta tag you can read in JS. For HTML forms, add:
-`<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">`
-
-### Sample form
-Visit `/submit` to see a CSRF-protected form that posts to `/submit`.
-
-### JSON API example
-POST `/api/echo` with JSON to see echo behavior. This route is CSRF-exempt by design.
-Example:
-```bash
-curl -s -X POST http://127.0.0.1:5000/api/echo -H "Content-Type: application/json" -d "{\"hello\":\"world\"}"
-```
-
-### Log rotation
-Set `LOG_FILE` to enable rotating file logs. Use `LOG_MAX_BYTES` and `LOG_BACKUP_COUNT` to tune size/retention.
+## Security Notes
+- CSRF enabled for HTML form submissions (`Flask-WTF`)
+- `/api/echo` is CSRF-exempt intentionally as a demo JSON endpoint
+- Request IDs are added to logs and responses via `X-Request-Id`
+- Rate-limit storage should be Redis in production for accuracy

@@ -5,17 +5,21 @@ import time
 import uuid
 from logging.handlers import RotatingFileHandler
 
-from flask import Flask, jsonify, g, render_template, request
+from flask import Flask, g, has_request_context, jsonify, render_template, request
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_wtf import CSRFProtect
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from app.ratelimit import rate_limit_storage_uri
 
 
 class RequestIdFilter(logging.Filter):
     def filter(self, record):
-        record.request_id = getattr(g, "request_id", "-")
+        if has_request_context():
+            record.request_id = getattr(g, "request_id", "-")
+        else:
+            record.request_id = "-"
         return True
 
 
@@ -36,15 +40,17 @@ class JsonLogFormatter(logging.Formatter):
 
 def _normalize_limits(value):
     if value is None:
-        return "200 per day;50 per hour"
+        return ["200 per day", "50 per hour"]
     if isinstance(value, (list, tuple)):
-        return value
+        return [str(item).strip() for item in value if str(item).strip()]
     if isinstance(value, str):
         s = value.strip()
+        if not s:
+            return ["200 per day", "50 per hour"]
         if s.isdigit():
-            return f"{s} per day"
-        return s
-    return "200 per day;50 per hour"
+            return [f"{s} per day"]
+        return [part.strip() for part in s.replace(",", ";").split(";") if part.strip()]
+    return ["200 per day", "50 per hour"]
 
 
 def create_app():
@@ -52,6 +58,14 @@ def create_app():
     env = os.environ.get("FLASK_ENV", "development").lower()
     config_obj = "config.ProductionConfig" if env == "production" else "config.DevelopmentConfig"
     app.config.from_object(config_obj)
+    trust_proxy_count = int(app.config.get("TRUST_PROXY_COUNT", 0) or 0)
+    if trust_proxy_count > 0:
+        app.wsgi_app = ProxyFix(
+            app.wsgi_app,
+            x_for=trust_proxy_count,
+            x_proto=trust_proxy_count,
+            x_host=trust_proxy_count,
+        )
 
     log_file = os.environ.get("LOG_FILE")
     if log_file:
@@ -69,10 +83,7 @@ def create_app():
     csrf = CSRFProtect(app)
 
     app.config["RATELIMIT_DEFAULT"] = _normalize_limits(app.config.get("RATELIMIT_DEFAULT"))
-
     limits = app.config.get("RATELIMIT_DEFAULT")
-    if isinstance(limits, str):
-        limits = [limits]
 
     limiter = Limiter(
         get_remote_address,
@@ -132,7 +143,10 @@ def create_app():
         response.headers.setdefault("X-Content-Type-Options", "nosniff")
         response.headers.setdefault("X-Frame-Options", "DENY")
         response.headers.setdefault("Referrer-Policy", "no-referrer")
-        response.headers.setdefault("Content-Security-Policy", "default-src 'self'")
+        response.headers.setdefault(
+            "Content-Security-Policy",
+            app.config.get("CONTENT_SECURITY_POLICY", "default-src 'self'"),
+        )
         return response
 
     return app
