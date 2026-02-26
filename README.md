@@ -1,8 +1,18 @@
 # FlaskAppEnhanced
 
+[![CI](https://github.com/dkupratis-debug/FlaskAppEnhanced/actions/workflows/ci.yml/badge.svg)](https://github.com/dkupratis-debug/FlaskAppEnhanced/actions/workflows/ci.yml)
+[![Release](https://github.com/dkupratis-debug/FlaskAppEnhanced/actions/workflows/release.yml/badge.svg)](https://github.com/dkupratis-debug/FlaskAppEnhanced/actions/workflows/release.yml)
+[![Package (GHCR)](https://github.com/dkupratis-debug/FlaskAppEnhanced/actions/workflows/package.yml/badge.svg)](https://github.com/dkupratis-debug/FlaskAppEnhanced/actions/workflows/package.yml)
+
 Small Flask app scaffold with basic security features, tests, and CI.
 
 This repository is also set up as a GitHub learning example: you can use it to understand common repo files, workflows, and where to click in GitHub.
+
+Quick links:
+- App docs and setup: `README.md`
+- GitHub walkthrough: `docs/GITHUB_GUIDE.md`
+- Contributing workflow: `CONTRIBUTING.md`
+- Security reporting: `SECURITY.md`
 
 ## Table of Contents
 - [Features](#features)
@@ -41,6 +51,11 @@ Visit:
 - `http://127.0.0.1:5000/`
 - `http://127.0.0.1:5000/health`
 
+Quick test after startup:
+```powershell
+curl http://127.0.0.1:5000/health
+```
+
 ## Run as an Installed Package
 You can also install and run this as a Python package:
 
@@ -68,11 +83,22 @@ Then visit:
 
 This repo also publishes a container image to GitHub Container Registry (GHCR) via `.github/workflows/package.yml`.
 
+Example GHCR image (replace tag as needed):
+```powershell
+docker pull ghcr.io/dkupratis-debug/flaskappenhanced:latest
+docker run --rm -p 8000:8000 -e SECRET_KEY=change-me ghcr.io/dkupratis-debug/flaskappenhanced:latest
+```
+
 ## Development Commands
 ```powershell
 pip install -r requirements-dev.txt
 ruff check .
 pytest
+```
+
+One-line local package build check:
+```powershell
+python -m build
 ```
 
 Task runners:
@@ -137,10 +163,18 @@ Start here:
 This repository is configured as a practical GitHub example and includes:
 
 - `About` section with description, homepage, and topics
-- Branch protection on `main` (PR review + required CI)
+- Branch protection on `main` (PR review + required CI + admin enforcement)
 - CI, Release, and GHCR package workflows
 - Dependabot alerts and automated security fixes
 - Issue/PR templates, `CODEOWNERS`, `CONTRIBUTING.md`, and `SECURITY.md`
+
+### Maintainer Workflow (Current)
+Because `main` is protected (including admins), changes should go through:
+1. Create a branch
+2. Push branch
+3. Open PR
+4. Wait for CI
+5. Merge PR
 
 ## GitHub Page Anatomy (Quick Reference)
 When you open this repository on GitHub, you will usually see:
