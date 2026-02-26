@@ -4,6 +4,19 @@ Small Flask app scaffold with basic security features, tests, and CI.
 
 This repository is also set up as a GitHub learning example: you can use it to understand common repo files, workflows, and where to click in GitHub.
 
+## Table of Contents
+- [Features](#features)
+- [Quick Start (Local)](#quick-start-local)
+- [Run as an Installed Package](#run-as-an-installed-package)
+- [Development Commands](#development-commands)
+- [Project Structure](#project-structure)
+- [Environment](#environment)
+- [Production Run (Example)](#production-run-example)
+- [Troubleshooting](#troubleshooting)
+- [Learn GitHub Using This Repo](#learn-github-using-this-repo)
+- [GitHub Page Anatomy (Quick Reference)](#github-page-anatomy-quick-reference)
+- [Security Notes](#security-notes)
+
 ## Features
 - Homepage at `/`
 - Health check at `/health`
@@ -25,6 +38,19 @@ Visit:
 - `http://127.0.0.1:5000/`
 - `http://127.0.0.1:5000/health`
 
+## Run as an Installed Package
+You can also install and run this as a Python package:
+
+```powershell
+pip install .
+flaskappenhanced
+```
+
+Alternative:
+```powershell
+python -m app
+```
+
 ## Development Commands
 ```powershell
 pip install -r requirements-dev.txt
@@ -35,6 +61,15 @@ pytest
 Task runners:
 - `Makefile` for Unix/macOS (`make test`, `make lint`, etc.)
 - `tasks.ps1` for PowerShell (`.\tasks.ps1 test`, `.\tasks.ps1 lint`, etc.)
+
+## Project Structure
+- `app/` - Flask app package, routes, templates, static files
+- `tests/` - Pytest test suite
+- `.github/workflows/` - CI and release automation
+- `docs/` - GitHub UI and contributor learning docs
+- `config.py` - Environment-based config classes
+- `requirements*.txt` - Runtime and development dependencies
+- `pyproject.toml` - Project metadata, tooling, packaging configuration
 
 ## Environment
 Copy `.env.example` to `.env` and update values as needed. `python-dotenv` loads `.env` automatically if installed.
@@ -53,6 +88,19 @@ $env:FLASK_ENV="production"
 $env:SECRET_KEY="change-me"
 gunicorn -c gunicorn.conf.py wsgi:app
 ```
+
+## Troubleshooting
+### GitHub shows an older commit
+GitHub only shows new code after `git add` + `git commit` + `git push`.
+
+### GitHub shows a different account on the commit
+Commit attribution comes from your local git `user.name` / `user.email`, not just the repo owner.
+
+### `pytest` warnings about cache permissions
+This repo disables pytest's cache provider in `pyproject.toml` to avoid noisy permission warnings in restricted environments.
+
+### Rate limiting in production
+`memory://` works for local demos, but use Redis in production (`RATELIMIT_STORAGE_URI`) for accurate limits across processes.
 
 ## Learn GitHub Using This Repo
 Start here:

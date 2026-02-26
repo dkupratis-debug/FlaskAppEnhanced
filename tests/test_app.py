@@ -19,3 +19,20 @@ def test_health():
     res = client.get("/health")
     assert res.status_code == 200
     assert res.get_json() == {"status": "ok"}
+
+
+def test_api_echo():
+    app = create_app()
+    client = app.test_client()
+    res = client.post("/api/echo", json={"hello": "world"})
+    assert res.status_code == 200
+    assert res.get_json() == {"received": {"hello": "world"}}
+
+
+def test_submit_form_page_includes_csrf_field():
+    app = create_app()
+    client = app.test_client()
+    res = client.get("/submit")
+    assert res.status_code == 200
+    assert b'name="csrf_token"' in res.data
+    assert res.headers["X-Content-Type-Options"] == "nosniff"

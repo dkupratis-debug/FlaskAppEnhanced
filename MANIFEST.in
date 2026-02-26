@@ -1,0 +1,4 @@
+include README.md
+include SECURITY.md
+recursive-include app/templates *.html
+recursive-include app/static *

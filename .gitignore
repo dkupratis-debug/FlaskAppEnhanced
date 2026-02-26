@@ -7,3 +7,7 @@ logs/*.log
 .pytest_cache/
 .ruff_cache/
 pytest-cache-files-*/
+dist/
+build/
+*.egg-info/
+.tmp/

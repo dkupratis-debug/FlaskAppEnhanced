@@ -1,7 +1,46 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "FlaskAppEnhanced"
-version = "0.1.0"
+version = "0.2.0"
+description = "Small Flask scaffold with security features and GitHub learning docs"
+readme = "README.md"
 requires-python = ">=3.10"
+dependencies = [
+  "Flask==3.0.2",
+  "Flask-Limiter==3.8.0",
+  "Flask-WTF==1.2.1",
+  "gunicorn==22.0.0",
+  "python-dotenv==1.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest==8.3.4",
+  "ruff==0.9.6",
+  "build==1.2.2.post1",
+]
+
+[project.urls]
+Homepage = "https://github.com/dkupratis-debug/FlaskAppEnhanced"
+Repository = "https://github.com/dkupratis-debug/FlaskAppEnhanced"
+Issues = "https://github.com/dkupratis-debug/FlaskAppEnhanced/issues"
+Security = "https://github.com/dkupratis-debug/FlaskAppEnhanced/security/policy"
+
+[project.scripts]
+flaskappenhanced = "app.__main__:main"
+
+[tool.setuptools]
+include-package-data = true
+py-modules = ["config"]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.setuptools.package-data]
+app = ["templates/*.html", "static/*"]
 
 [tool.pytest.ini_options]
 addopts = "-q -p no:cacheprovider"
