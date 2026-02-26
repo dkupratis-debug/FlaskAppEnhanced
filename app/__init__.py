@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 
 
 def create_app():
@@ -11,10 +11,18 @@ def create_app():
 
     @app.get("/")
     def home():
-        return "FlaskAppEnhanced is running"
+        return render_template("index.html")
 
     @app.get("/health")
     def health():
         return jsonify(status="ok")
+
+    @app.after_request
+    def set_security_headers(response):
+        response.headers.setdefault("X-Content-Type-Options", "nosniff")
+        response.headers.setdefault("X-Frame-Options", "DENY")
+        response.headers.setdefault("Referrer-Policy", "no-referrer")
+        response.headers.setdefault("Content-Security-Policy", "default-src 'self'")
+        return response
 
     return app
