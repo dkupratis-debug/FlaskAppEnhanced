@@ -19,6 +19,7 @@ This repo includes a `render.yaml` blueprint to make deployment easier.
 4. Use the `render.yaml` blueprint
 5. Set environment variables:
    - `SECRET_KEY` (required)
+   - `TRUST_PROXY_COUNT=1` (recommended behind Render proxy so rate limiting/logging use real client IPs)
    - optionally `RATELIMIT_STORAGE_URI` (use Redis for production)
 6. Deploy and copy the public URL
 7. Update GitHub `About -> Website` with the live demo URL
@@ -26,6 +27,7 @@ This repo includes a `render.yaml` blueprint to make deployment easier.
 ## Security Notes for Public Demo
 - Do not use default `SECRET_KEY`
 - Keep rate limit enabled
+- Set `TRUST_PROXY_COUNT=1` behind a single trusted reverse proxy (Render)
 - Use Redis for shared rate limiting if traffic grows
 - Avoid exposing admin/debug endpoints
 - Review logs for abuse patterns

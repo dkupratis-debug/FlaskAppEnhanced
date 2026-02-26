@@ -10,5 +10,7 @@ services:
         value: production
       - key: SECRET_KEY
         generateValue: true
+      - key: TRUST_PROXY_COUNT
+        value: "1"
       - key: RATELIMIT_STORAGE_URI
         value: memory://
