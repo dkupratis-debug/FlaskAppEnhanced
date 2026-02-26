@@ -56,6 +56,10 @@ Visit `/submit` to see a CSRF-protected form that posts to `/submit`.
 
 ### JSON API example
 POST `/api/echo` with JSON to see echo behavior. This route is CSRF-exempt by design.
+Example:
+```bash
+curl -s -X POST http://127.0.0.1:5000/api/echo -H "Content-Type: application/json" -d "{\"hello\":\"world\"}"
+```
 
 ### Log rotation
 Set `LOG_FILE` to enable rotating file logs. Use `LOG_MAX_BYTES` and `LOG_BACKUP_COUNT` to tune size/retention.
