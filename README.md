@@ -25,6 +25,8 @@ This repository is also set up as a GitHub learning example: you can use it to u
 - Rate limiting via `Flask-Limiter`
 - Security headers and request IDs
 - GitHub Actions CI (`.github/workflows/ci.yml`)
+- GitHub Release automation (`.github/workflows/release.yml`)
+- GitHub Container Registry package workflow (`.github/workflows/package.yml`)
 
 ## Quick Start (Local)
 ```powershell
@@ -101,6 +103,10 @@ This repo disables pytest's cache provider in `pyproject.toml` to avoid noisy pe
 
 ### Rate limiting in production
 `memory://` works for local demos, but use Redis in production (`RATELIMIT_STORAGE_URI`) for accurate limits across processes.
+
+### Releases vs Packages on GitHub
+- `Releases` in this repo contains versioned source/wheel artifacts (for example `v0.2.0`)
+- `Packages` is for registry-published packages (this repo publishes a container image to GHCR via Actions)
 
 ## Learn GitHub Using This Repo
 Start here:
