@@ -1,19 +1,10 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FlaskAppEnhanced</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
-  </head>
-  <body>
-    <main class="container">
-      <h1>FlaskAppEnhanced</h1>
-      <p>Minimal Flask scaffold with health check and basic config.</p>
-      <div class="card">
-        <p><strong>Status:</strong> <span class="badge">Running</span></p>
-        <p>Health check: <code>/health</code></p>
-      </div>
-    </main>
-  </body>
-</html>
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>FlaskAppEnhanced</h1>
+  <p>Minimal Flask scaffold with health check and basic config.</p>
+  <div class="card">
+    <p><strong>Status:</strong> <span class="badge">Running</span></p>
+    <p>Health check: <code>/health</code></p>
+  </div>
+{% endblock %}

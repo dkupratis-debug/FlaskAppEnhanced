@@ -5,6 +5,7 @@ class Config:
     JSON_SORT_KEYS = False
     RATELIMIT_DEFAULT = os.environ.get("RATELIMIT_DEFAULT", "200 per day;50 per hour")
     RATELIMIT_STORAGE_URI = os.environ.get("RATELIMIT_STORAGE_URI", "memory://")
+    ENV = os.environ.get("FLASK_ENV", "development").lower()
 
 class DevelopmentConfig(Config):
     DEBUG = True

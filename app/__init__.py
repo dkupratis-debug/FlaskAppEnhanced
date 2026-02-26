@@ -1,3 +1,4 @@
+import logging
 import os
 import time
 import uuid
@@ -7,6 +8,14 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_wtf import CSRFProtect
 
+from app.ratelimit import rate_limit_storage_uri
+
+
+class RequestIdFilter(logging.Filter):
+    def filter(self, record):
+        record.request_id = getattr(g, "request_id", "-")
+        return True
+
 
 def create_app():
     app = Flask(__name__)
@@ -14,12 +23,23 @@ def create_app():
     config_obj = "config.ProductionConfig" if env == "production" else "config.DevelopmentConfig"
     app.config.from_object(config_obj)
 
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter(
+        "%(asctime)s %(levelname)s %(name)s request_id=%(request_id)s %(message)s"
+    )
+    handler.setFormatter(formatter)
+    handler.addFilter(RequestIdFilter())
+    app.logger.handlers.clear()
+    app.logger.addHandler(handler)
+    app.logger.setLevel(logging.INFO)
+
     CSRFProtect(app)
 
     limiter = Limiter(
         get_remote_address,
         app=app,
         default_limits=app.config.get("RATELIMIT_DEFAULT"),
+        storage_uri=rate_limit_storage_uri(),
     )
 
     @app.before_request
@@ -30,6 +50,15 @@ def create_app():
     @app.after_request
     def add_request_id_header(response):
         response.headers.setdefault("X-Request-Id", g.request_id)
+        duration_ms = int((time.time() - g.start_time) * 1000)
+        app.logger.info(
+            "method=%s path=%s status=%s duration_ms=%s remote=%s",
+            request.method,
+            request.path,
+            response.status_code,
+            duration_ms,
+            request.headers.get("X-Forwarded-For", request.remote_addr),
+        )
         return response
 
     @app.get("/")

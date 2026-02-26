@@ -44,3 +44,7 @@ This scaffold includes:
 ### Tuning rate limits
 Set `RATELIMIT_DEFAULT` (e.g., `100 per hour`) and switch storage to Redis in production:
 `RATELIMIT_STORAGE_URI=redis://:password@host:6379/0`
+
+### CSRF in templates
+`layout.html` includes a CSRF meta tag you can read in JS. For HTML forms, add:
+`<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">`
