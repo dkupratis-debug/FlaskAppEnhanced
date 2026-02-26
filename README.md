@@ -26,6 +26,7 @@ Quick links:
 - [Deploy a Live Demo](#deploy-a-live-demo)
 - [Troubleshooting](#troubleshooting)
 - [Learning Path](#learning-path)
+- [First 10 Minutes (Beginner Click Guide)](#first-10-minutes-beginner-click-guide)
 - [Sharing for Learning](#sharing-for-learning)
 - [Public Launch Checklist](#public-launch-checklist)
 - [Analytics and Privacy](#analytics-and-privacy)
@@ -181,6 +182,18 @@ Use this repo as a hands-on GitHub + Flask lab.
 3. Review code, tests, config, docs, and security impact
 4. Check CI and release/package workflows
 
+## First 10 Minutes (Beginner Click Guide)
+If you are brand new to GitHub, start with:
+- `docs/FIRST_10_MINUTES.md`
+
+This is a click-by-click walkthrough that shows exactly where to go first:
+- repo homepage / README
+- pinned `Start Here` issue
+- workshop issues
+- Actions
+- Releases
+- Packages
+
 ## Sharing for Learning
 To share this repo with learners effectively:
 
@@ -219,6 +232,7 @@ Short version:
 ## Learn GitHub Using This Repo
 Start here:
 - `README.md` (project overview)
+- `docs/FIRST_10_MINUTES.md` (fast beginner click guide)
 - `CONTRIBUTING.md` (branching, commit, PR flow)
 - `docs/GITHUB_GUIDE.md` (GitHub UI walkthrough)
 - `docs/PR_REVIEW_CHECKLIST.md` (how to review PRs)
@@ -247,6 +261,7 @@ This repository is configured as a practical GitHub example and includes:
 ## Visual Walkthrough Assets
 Screenshot/GIF placeholders and capture plan live in:
 - `docs/images/README.md`
+- `docs/images/CAPTURE_CHECKLIST.md`
 
 Add screenshots there to make the GitHub guide more visual for friends and learners.
 

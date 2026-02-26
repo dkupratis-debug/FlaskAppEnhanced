@@ -25,6 +25,10 @@ Use this folder for screenshots and short GIFs that make the GitHub learning wal
 - Prefer PNG for screenshots, GIF or MP4 for short demos
 - Keep images under ~1-2 MB when possible
 
+## Exact Capture Checklist
+- Use `docs/images/CAPTURE_CHECKLIST.md` for a step-by-step click/capture plan
+- Use the recommended filenames there so README/docs links stay consistent
+
 ## Safe Sharing Tip
 Before capturing GitHub screens for public sharing:
 - confirm no secrets/tokens are visible
