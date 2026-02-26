@@ -9,7 +9,7 @@ description = "Small Flask scaffold with security features and GitHub learning d
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-  "Flask==3.0.2",
+  "Flask==3.1.3",
   "Flask-Limiter==3.8.0",
   "Flask-WTF==1.2.1",
   "gunicorn==22.0.0",
