@@ -12,6 +12,7 @@ Use this folder for screenshots and short GIFs that make the GitHub learning wal
 - `github-release-page.png`
 - `github-package-page.png`
 - `github-branch-protection.png`
+- `learn-dashboard.png`
 
 ### Optional GIFs (short, 5-15 seconds)
 - `open-pr-and-watch-ci.gif`
