@@ -27,6 +27,7 @@ Quick links:
 - [Troubleshooting](#troubleshooting)
 - [Learning Path](#learning-path)
 - [First 10 Minutes (Beginner Click Guide)](#first-10-minutes-beginner-click-guide)
+- [Practice Examples](#practice-examples)
 - [Sharing for Learning](#sharing-for-learning)
 - [Public Launch Checklist](#public-launch-checklist)
 - [Analytics and Privacy](#analytics-and-privacy)
@@ -194,6 +195,12 @@ This is a click-by-click walkthrough that shows exactly where to go first:
 - Releases
 - Packages
 
+## Practice Examples
+For guided exercises (beginner to intermediate), use:
+- `docs/PRACTICE_EXAMPLES.md`
+
+This file gives exact tasks, success checks, and a recommended order.
+
 ## Sharing for Learning
 To share this repo with learners effectively:
 
@@ -212,6 +219,8 @@ To share this repo with learners effectively:
 5. Use forks for practice so they can safely merge in their own copy
 
 Read `docs/SAFE_SHARING.md` before posting publicly (especially on social media).
+For a ready-to-use post template, use:
+- `docs/FACEBOOK_SHARE_GUIDE.md`
 
 ## Public Launch Checklist
 Before making this repo public or sharing it widely, use:
@@ -233,12 +242,14 @@ Short version:
 Start here:
 - `README.md` (project overview)
 - `docs/FIRST_10_MINUTES.md` (fast beginner click guide)
+- `docs/PRACTICE_EXAMPLES.md` (guided exercises with success checks)
 - `CONTRIBUTING.md` (branching, commit, PR flow)
 - `docs/GITHUB_GUIDE.md` (GitHub UI walkthrough)
 - `docs/PR_REVIEW_CHECKLIST.md` (how to review PRs)
 - `docs/ARCHITECTURE.md` (request flow and components)
 - `docs/VERSIONING_AND_RELEASES.md` (version/tag/release flow)
 - `docs/SAFE_SHARING.md` (how to share safely)
+- `docs/FACEBOOK_SHARE_GUIDE.md` (social post template + follow-up text)
 - `docs/PUBLIC_LAUNCH_CHECKLIST.md` (how to prepare for public sharing)
 - `docs/ANALYTICS_AND_PRIVACY.md` (tracking usage ethically)
 - `docs/DEPLOY_DEMO.md` (how to get a live demo URL)
