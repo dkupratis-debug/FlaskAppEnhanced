@@ -11,6 +11,8 @@ This repository is also set up as a GitHub learning example: you can use it to u
 Quick links:
 - App docs and setup: `README.md`
 - GitHub walkthrough: `docs/GITHUB_GUIDE.md`
+- Discussions guide: `docs/DISCUSSIONS_GUIDE.md`
+- Start Here discussion: `https://github.com/dkupratis-debug/FlaskAppEnhanced/discussions/29`
 - Contributing workflow: `CONTRIBUTING.md`
 - Security reporting: `SECURITY.md`
 
