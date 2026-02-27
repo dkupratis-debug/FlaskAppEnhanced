@@ -63,6 +63,15 @@ def test_learn_lab_page_loads():
     assert b"flaskappenhanced-learn-lab-progress" in res.data
 
 
+def test_launch_page_loads():
+    app = create_app()
+    client = app.test_client()
+    res = client.get("/launch")
+    assert res.status_code == 200
+    assert b"FlaskAppEnhanced Launchpad" in res.data
+    assert b"Community" in res.data
+
+
 def test_production_requires_non_default_secret_key(monkeypatch):
     monkeypatch.setenv("FLASK_ENV", "production")
     monkeypatch.delenv("SECRET_KEY", raising=False)

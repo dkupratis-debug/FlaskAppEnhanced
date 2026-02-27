@@ -10,6 +10,7 @@ This repository is also set up as a GitHub learning example: you can use it to u
 
 Quick links:
 - App docs and setup: `README.md`
+- Public launchpad page: `/launch`
 - Docs index: `docs/INDEX.md`
 - Role-based onboarding: `docs/START_HERE_BY_ROLE.md`
 - GitHub walkthrough: `docs/GITHUB_GUIDE.md`
@@ -22,6 +23,7 @@ Quick links:
 - Contributing workflow: `CONTRIBUTING.md`
 - Security reporting: `SECURITY.md`
 - Security best practices: `docs/SECURITY_BEST_PRACTICES.md`
+- Engagement automation: `docs/ENGAGEMENT_AUTOMATION.md`
 
 ## Table of Contents
 - [Features](#features)
@@ -39,6 +41,7 @@ Quick links:
 - [Start Here by Role](#start-here-by-role)
 - [Interactive Learning Dashboard](#interactive-learning-dashboard)
 - [Interactive Learning Lab](#interactive-learning-lab)
+- [Public Launchpad](#public-launchpad)
 - [CI Troubleshooting Flow](#ci-troubleshooting-flow)
 - [Broken to Fixed Scenarios](#broken-to-fixed-scenarios)
 - [First 10 Minutes (Beginner Click Guide)](#first-10-minutes-beginner-click-guide)
@@ -240,6 +243,16 @@ This page includes:
 - failing CI fix simulation
 - release/tag flow simulation
 - command and expected-output walk-throughs
+
+## Public Launchpad
+For a share-friendly entry page with guided calls to action, open:
+- `/launch`
+
+This page includes:
+- learner onboarding cards
+- community and discussion entry points
+- contribution links
+- quality/security links
 
 ## CI Troubleshooting Flow
 When any required GitHub check fails, use:
