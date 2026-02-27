@@ -1,0 +1,182 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>Interactive Learning Lab</h1>
+  <p>Practice real GitHub workflow decisions in a safe simulation.</p>
+
+  <div class="card">
+    <h2>Simulation Mode</h2>
+    <label for="scenario-select">Choose scenario</label>
+    <select id="scenario-select">
+      <option value="first-pr">First PR flow</option>
+      <option value="failing-ci">Fix failing CI</option>
+      <option value="release-flow">Release and tag flow</option>
+    </select>
+    <p><strong>Goal:</strong> <span id="scenario-goal"></span></p>
+    <p><strong>Success:</strong> <span id="scenario-success"></span></p>
+  </div>
+
+  <div class="card">
+    <h2>Step Runner</h2>
+    <p id="step-title"></p>
+    <pre id="command-box" class="lab-box"></pre>
+    <pre id="output-box" class="lab-box"></pre>
+    <div class="lab-actions">
+      <button id="prev-step" type="button">Previous</button>
+      <button id="next-step" type="button">Next</button>
+      <button id="reset-step" type="button">Reset</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>What to click in GitHub</h2>
+    <ul id="click-list"></ul>
+    <p>
+      For full troubleshooting flow use
+      <a href="https://github.com/dkupratis-debug/FlaskAppEnhanced/blob/main/docs/CI_TROUBLESHOOTING_FLOW.md" target="_blank" rel="noreferrer">CI Troubleshooting Flow</a>.
+    </p>
+  </div>
+
+  <script>
+    const scenarios = {
+      "first-pr": {
+        goal: "Open your first clean PR and pass all required checks.",
+        success: "PR is open with green checks and ready for review.",
+        clicks: [
+          "Code -> branch selector -> create new branch",
+          "Commit small change on branch",
+          "Pull requests -> New pull request",
+          "Checks tab -> verify all green"
+        ],
+        steps: [
+          {
+            title: "Create branch",
+            command: "git checkout -b docs/my-first-change",
+            output: "Switched to a new branch 'docs/my-first-change'"
+          },
+          {
+            title: "Commit change",
+            command: "git add README.md && git commit -m \"Improve intro wording\"",
+            output: "[docs/my-first-change abc1234] Improve intro wording"
+          },
+          {
+            title: "Push and open PR",
+            command: "git push -u origin docs/my-first-change",
+            output: "Create a pull request by visiting the provided URL."
+          }
+        ]
+      },
+      "failing-ci": {
+        goal: "Diagnose and fix one failing CI job.",
+        success: "PR checks are green and merge gate unblocked.",
+        clicks: [
+          "Pull request -> Checks -> failing job",
+          "Open log -> copy first error",
+          "Fix locally -> push commit",
+          "Refresh PR -> verify green"
+        ],
+        steps: [
+          {
+            title: "Run local checks",
+            command: "pre-commit run --all-files",
+            output: "markdownlint........................................Failed"
+          },
+          {
+            title: "Fix and retest",
+            command: "pre-commit run --all-files",
+            output: "Passed"
+          },
+          {
+            title: "Validate tests",
+            command: "pytest -q tests",
+            output: "...... [100%]"
+          }
+        ]
+      },
+      "release-flow": {
+        goal: "Understand release/tag flow with protected v* tags.",
+        success: "You can explain tag protection and release workflow.",
+        clicks: [
+          "Actions -> Release workflow",
+          "Releases -> inspect latest notes/assets",
+          "Rulesets -> review tag protections",
+          "Tags -> confirm v* naming"
+        ],
+        steps: [
+          {
+            title: "Create version tag",
+            command: "git tag v0.3.0",
+            output: "Tag created locally."
+          },
+          {
+            title: "Push tag",
+            command: "git push origin v0.3.0",
+            output: "Release workflow triggered."
+          },
+          {
+            title: "Verify release",
+            command: "gh release list --limit 5",
+            output: "v0.3.0  Latest"
+          }
+        ]
+      }
+    };
+
+    const select = document.getElementById("scenario-select");
+    const goal = document.getElementById("scenario-goal");
+    const success = document.getElementById("scenario-success");
+    const stepTitle = document.getElementById("step-title");
+    const commandBox = document.getElementById("command-box");
+    const outputBox = document.getElementById("output-box");
+    const clickList = document.getElementById("click-list");
+    const prev = document.getElementById("prev-step");
+    const next = document.getElementById("next-step");
+    const reset = document.getElementById("reset-step");
+
+    let index = 0;
+
+    function renderClicks(items) {
+      clickList.innerHTML = "";
+      items.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        clickList.appendChild(li);
+      });
+    }
+
+    function renderStep() {
+      const data = scenarios[select.value];
+      const step = data.steps[index];
+      stepTitle.textContent = "Step " + (index + 1) + " of " + data.steps.length + ": " + step.title;
+      commandBox.textContent = "$ " + step.command;
+      outputBox.textContent = step.output;
+      prev.disabled = index === 0;
+      next.disabled = index === data.steps.length - 1;
+    }
+
+    function renderScenario() {
+      const data = scenarios[select.value];
+      goal.textContent = data.goal;
+      success.textContent = data.success;
+      renderClicks(data.clicks);
+      index = 0;
+      renderStep();
+    }
+
+    select.addEventListener("change", renderScenario);
+    prev.addEventListener("click", () => {
+      index -= 1;
+      renderStep();
+    });
+    next.addEventListener("click", () => {
+      index += 1;
+      renderStep();
+    });
+    reset.addEventListener("click", () => {
+      index = 0;
+      renderStep();
+    });
+
+    renderScenario();
+  </script>
+{% endblock %}

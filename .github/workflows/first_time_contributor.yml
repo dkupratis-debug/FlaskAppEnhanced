@@ -1,0 +1,31 @@
+name: First-Time Contributor Welcome
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Welcome first-time contributors
+        uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: >
+            Thanks for opening your first issue in FlaskAppEnhanced.
+            Start with docs/START_HERE_BY_ROLE.md and docs/DISCUSSIONS_GUIDE.md.
+            For troubleshooting, use docs/CI_TROUBLESHOOTING_FLOW.md.
+            Do not post secrets, tokens, or private keys.
+          pr-message: >
+            Thanks for your first pull request in FlaskAppEnhanced.
+            Please confirm all required checks are green and include
+            what changed, why, and how you tested it.
+            If blocked, ask in Q&A discussions using the support template.
