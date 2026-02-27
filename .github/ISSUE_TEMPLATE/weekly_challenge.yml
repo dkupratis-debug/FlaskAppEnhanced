@@ -1,0 +1,58 @@
+name: Weekly challenge
+description: Create a guided weekly exercise for learners
+title: "[Weekly Challenge]: "
+labels: ["workshop", "learning"]
+body:
+  - type: input
+    id: week
+    attributes:
+      label: Week number
+      placeholder: "Week 1"
+    validations:
+      required: true
+  - type: input
+    id: skill
+    attributes:
+      label: Skill focus
+      description: Main skill this challenge teaches
+      placeholder: "Pull requests and CI checks"
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: One clear sentence for what learners should achieve
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Step-by-step instructions
+      description: Write clear numbered steps for learners
+      placeholder: |
+        1. Open ...
+        2. Create ...
+        3. Run ...
+    validations:
+      required: true
+  - type: textarea
+    id: success
+    attributes:
+      label: Success criteria
+      description: How learners verify completion
+      placeholder: |
+        - PR opened
+        - CI checks pass
+        - One review comment addressed
+    validations:
+      required: true
+  - type: textarea
+    id: resources
+    attributes:
+      label: Helpful resources
+      description: Link docs or files to help learners
+      placeholder: |
+        - docs/FIRST_10_MINUTES.md
+        - docs/PRACTICE_EXAMPLES.md
+        - docs/PR_REVIEW_CHECKLIST.md
