@@ -29,6 +29,7 @@ Use this folder for screenshots and short GIFs that make the GitHub learning wal
 ## Exact Capture Checklist
 - Use `docs/images/CAPTURE_CHECKLIST.md` for a step-by-step click/capture plan
 - Use the recommended filenames there so README/docs links stay consistent
+- Use `docs/images/REPO_FLOW_MAP.md` for a simple visual of the learner -> PR -> CI -> merge path
 
 ## Safe Sharing Tip
 Before capturing GitHub screens for public sharing:
