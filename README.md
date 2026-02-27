@@ -15,6 +15,7 @@ Quick links:
 - Start Here discussion: `https://github.com/dkupratis-debug/FlaskAppEnhanced/discussions/29`
 - Contributing workflow: `CONTRIBUTING.md`
 - Security reporting: `SECURITY.md`
+- Security best practices: `docs/SECURITY_BEST_PRACTICES.md`
 
 ## Table of Contents
 - [Features](#features)
@@ -354,3 +355,4 @@ These counts (`Stars`, `Watchers`, `Forks`) are GitHub UI stats and update autom
 - `/api/echo` is CSRF-exempt intentionally as a demo JSON endpoint
 - Request IDs are added to logs and responses via `X-Request-Id`
 - Rate-limit storage should be Redis in production for accuracy
+- Ongoing maintainer hardening guide: `docs/SECURITY_BEST_PRACTICES.md`
