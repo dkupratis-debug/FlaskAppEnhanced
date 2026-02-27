@@ -25,6 +25,7 @@ Use this file as the top-level map for all training docs.
 ## Discussions and Engagement
 
 - `docs/DISCUSSIONS_GUIDE.md`
+- `docs/ENGAGEMENT_PLAYBOOK.md`
 - `docs/templates/WEEKLY_DISCUSSION_PROMPT.md`
 - `docs/templates/MONTHLY_RECAP_TEMPLATE.md`
 - `docs/templates/LEARNER_HELP_RESPONSE_TEMPLATE.md`
