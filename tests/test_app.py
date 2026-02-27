@@ -40,6 +40,15 @@ def test_submit_form_page_includes_csrf_field():
     assert res.headers["X-Content-Type-Options"] == "nosniff"
 
 
+def test_learn_dashboard_page_loads():
+    app = create_app()
+    client = app.test_client()
+    res = client.get("/learn")
+    assert res.status_code == 200
+    assert b"Learning Dashboard" in res.data
+    assert b"Choose a track" in res.data
+
+
 def test_production_requires_non_default_secret_key(monkeypatch):
     monkeypatch.setenv("FLASK_ENV", "production")
     monkeypatch.delenv("SECRET_KEY", raising=False)
