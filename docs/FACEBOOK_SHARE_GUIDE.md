@@ -28,7 +28,7 @@ It includes:
 - real CI/release/package workflows
 
 Repository:
-https://github.com/dkupratis-debug/FlaskAppEnhanced
+[FlaskAppEnhanced](https://github.com/dkupratis-debug/FlaskAppEnhanced)
 
 Start here:
 1. Read the README
