@@ -128,6 +128,10 @@ def create_app():
     def home():
         return render_template("index.html")
 
+    @app.get("/learn")
+    def learn():
+        return render_template("learn.html")
+
     @app.get("/submit")
     def submit_form():
         return render_template("form.html")

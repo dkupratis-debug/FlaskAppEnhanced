@@ -1,0 +1,127 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>Learning Dashboard</h1>
+  <p>Choose a track, follow the next step, and check off progress as you go.</p>
+
+  <div class="card">
+    <label for="track-select">Learning track</label>
+    <select id="track-select">
+      <option value="beginner">Beginner (Track A)</option>
+      <option value="intermediate">Intermediate (Track B)</option>
+      <option value="maintainer">Maintainer (Track C)</option>
+    </select>
+    <p><strong>Next action:</strong> <span id="next-action"></span></p>
+    <p><strong>Expected result:</strong> <span id="next-result"></span></p>
+  </div>
+
+  <div class="card">
+    <h2>Checklist</h2>
+    <div id="checklist"></div>
+  </div>
+
+  <div class="card">
+    <h2>Quick links</h2>
+    <ul>
+      <li><a href="https://github.com/dkupratis-debug/FlaskAppEnhanced/issues/9" target="_blank" rel="noreferrer">Start Here issue (#9)</a></li>
+      <li><a href="https://github.com/dkupratis-debug/FlaskAppEnhanced/issues/18" target="_blank" rel="noreferrer">Current weekly challenge (#18)</a></li>
+      <li><a href="https://github.com/dkupratis-debug/FlaskAppEnhanced/actions" target="_blank" rel="noreferrer">Actions</a></li>
+      <li><a href="https://github.com/dkupratis-debug/FlaskAppEnhanced/releases" target="_blank" rel="noreferrer">Releases</a></li>
+      <li><a href="https://github.com/dkupratis-debug/FlaskAppEnhanced/issues/new/choose" target="_blank" rel="noreferrer">Get help (open issue)</a></li>
+    </ul>
+  </div>
+
+  <script>
+    const tracks = {
+      beginner: {
+        nextAction: "Open docs/FIRST_10_MINUTES.md and complete Exercise 1.",
+        nextResult: "You open your first PR in your fork and checks pass.",
+        steps: [
+          "Read README.md",
+          "Open docs/FIRST_10_MINUTES.md",
+          "Open Start Here issue (#9)",
+          "Complete Week 1 challenge (#18)",
+          "Watch a green CI run in Actions"
+        ]
+      },
+      intermediate: {
+        nextAction: "Complete Exercises 4, 5, and 8 in docs/PRACTICE_EXAMPLES.md.",
+        nextResult: "You can write a small test and review a PR confidently.",
+        steps: [
+          "Open docs/PRACTICE_EXAMPLES.md",
+          "Complete Exercise 4 (doc improvement)",
+          "Complete Exercise 5 (PR review)",
+          "Complete Exercise 8 (local quality check)",
+          "Explain CI jobs in your own words"
+        ]
+      },
+      maintainer: {
+        nextAction: "Use docs/TRAINING_OPERATIONS.md to run one weekly challenge cycle.",
+        nextResult: "You can track learners and respond consistently.",
+        steps: [
+          "Read docs/TRAINING_OPERATIONS.md",
+          "Use docs/LEARNER_PROGRESS_TEMPLATE.md",
+          "Create or run a weekly challenge issue",
+          "Reply using docs/COACHING_REPLY_TEMPLATES.md",
+          "Review Insights -> Traffic and summarize outcomes"
+        ]
+      }
+    };
+
+    const storageKey = "flaskappenhanced-learning-progress";
+    const trackSelect = document.getElementById("track-select");
+    const nextAction = document.getElementById("next-action");
+    const nextResult = document.getElementById("next-result");
+    const checklist = document.getElementById("checklist");
+
+    function loadProgress() {
+      try {
+        return JSON.parse(localStorage.getItem(storageKey) || "{}");
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function saveProgress(progress) {
+      localStorage.setItem(storageKey, JSON.stringify(progress));
+    }
+
+    function renderChecklist(trackName) {
+      const progress = loadProgress();
+      const trackProgress = progress[trackName] || {};
+      const data = tracks[trackName];
+
+      nextAction.textContent = data.nextAction;
+      nextResult.textContent = data.nextResult;
+      checklist.innerHTML = "";
+
+      data.steps.forEach((step, index) => {
+        const row = document.createElement("label");
+        row.className = "check-row";
+
+        const box = document.createElement("input");
+        box.type = "checkbox";
+        box.checked = !!trackProgress[index];
+        box.addEventListener("change", () => {
+          const latest = loadProgress();
+          if (!latest[trackName]) latest[trackName] = {};
+          latest[trackName][index] = box.checked;
+          saveProgress(latest);
+        });
+
+        const text = document.createElement("span");
+        text.textContent = step;
+
+        row.appendChild(box);
+        row.appendChild(text);
+        checklist.appendChild(row);
+      });
+    }
+
+    trackSelect.addEventListener("change", (e) => {
+      renderChecklist(e.target.value);
+    });
+
+    renderChecklist(trackSelect.value);
+  </script>
+{% endblock %}
