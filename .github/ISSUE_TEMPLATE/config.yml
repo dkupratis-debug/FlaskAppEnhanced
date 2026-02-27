@@ -3,3 +3,6 @@ contact_links:
   - name: Security vulnerability report
     url: https://github.com/dkupratis-debug/FlaskAppEnhanced/security/policy
     about: Please report security vulnerabilities using the repository security policy.
+  - name: Beginner help and learning guide
+    url: https://github.com/dkupratis-debug/FlaskAppEnhanced/blob/main/docs/FIRST_10_MINUTES.md
+    about: Start here if you are new and want a guided path.
