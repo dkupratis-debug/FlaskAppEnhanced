@@ -16,6 +16,7 @@ Quick links:
 - CI troubleshooting: `docs/CI_TROUBLESHOOTING_FLOW.md`
 - Broken-to-fixed scenarios: `docs/BROKEN_TO_FIXED_SCENARIOS.md`
 - Quality scorecard: `docs/QUALITY_SCORECARD.md`
+- Engagement playbook: `docs/ENGAGEMENT_PLAYBOOK.md`
 - Discussions guide: `docs/DISCUSSIONS_GUIDE.md`
 - Start Here discussion: `https://github.com/dkupratis-debug/FlaskAppEnhanced/discussions/29`
 - Contributing workflow: `CONTRIBUTING.md`

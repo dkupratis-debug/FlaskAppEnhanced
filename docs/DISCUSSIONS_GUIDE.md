@@ -10,6 +10,7 @@ Use GitHub Discussions for learner questions, ideas, and progress updates.
 - Weekly prompt template: `docs/templates/WEEKLY_DISCUSSION_PROMPT.md`
 - Monthly recap template: `docs/templates/MONTHLY_RECAP_TEMPLATE.md`
 - Learner support reply template: `docs/templates/LEARNER_HELP_RESPONSE_TEMPLATE.md`
+- Maintainer cadence guide: `docs/ENGAGEMENT_PLAYBOOK.md`
 
 ## Which Category to Use
 

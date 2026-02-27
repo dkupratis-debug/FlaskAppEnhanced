@@ -59,6 +59,8 @@ def test_learn_lab_page_loads():
     assert b"Interactive Learning Lab" in res.data
     assert b"Simulation Mode" in res.data
     assert b"const scenarios" in res.data
+    assert b"Copy command" in res.data
+    assert b"flaskappenhanced-learn-lab-progress" in res.data
 
 
 def test_production_requires_non_default_secret_key(monkeypatch):

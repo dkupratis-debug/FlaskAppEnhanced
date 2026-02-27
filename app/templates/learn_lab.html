@@ -14,13 +14,16 @@
     </select>
     <p><strong>Goal:</strong> <span id="scenario-goal"></span></p>
     <p><strong>Success:</strong> <span id="scenario-success"></span></p>
+    <p><strong>Progress:</strong> <span id="scenario-progress"></span></p>
   </div>
 
   <div class="card">
     <h2>Step Runner</h2>
     <p id="step-title"></p>
     <pre id="command-box" class="lab-box"></pre>
+    <button id="copy-command" type="button">Copy command</button>
     <pre id="output-box" class="lab-box"></pre>
+    <button id="copy-output" type="button">Copy expected output</button>
     <div class="lab-actions">
       <button id="prev-step" type="button">Previous</button>
       <button id="next-step" type="button">Next</button>
@@ -38,6 +41,7 @@
   </div>
 
   <script>
+    const storageKey = "flaskappenhanced-learn-lab-progress";
     const scenarios = {
       "first-pr": {
         goal: "Open your first clean PR and pass all required checks.",
@@ -125,15 +129,30 @@
     const select = document.getElementById("scenario-select");
     const goal = document.getElementById("scenario-goal");
     const success = document.getElementById("scenario-success");
+    const progress = document.getElementById("scenario-progress");
     const stepTitle = document.getElementById("step-title");
     const commandBox = document.getElementById("command-box");
     const outputBox = document.getElementById("output-box");
+    const copyCommand = document.getElementById("copy-command");
+    const copyOutput = document.getElementById("copy-output");
     const clickList = document.getElementById("click-list");
     const prev = document.getElementById("prev-step");
     const next = document.getElementById("next-step");
     const reset = document.getElementById("reset-step");
 
     let index = 0;
+
+    function loadState() {
+      try {
+        return JSON.parse(localStorage.getItem(storageKey) || "{}");
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function saveState(state) {
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    }
 
     function renderClicks(items) {
       clickList.innerHTML = "";
@@ -150,8 +169,12 @@
       stepTitle.textContent = "Step " + (index + 1) + " of " + data.steps.length + ": " + step.title;
       commandBox.textContent = "$ " + step.command;
       outputBox.textContent = step.output;
+      progress.textContent = Math.round(((index + 1) / data.steps.length) * 100) + "%";
       prev.disabled = index === 0;
       next.disabled = index === data.steps.length - 1;
+      const state = loadState();
+      state[select.value] = index;
+      saveState(state);
     }
 
     function renderScenario() {
@@ -159,7 +182,9 @@
       goal.textContent = data.goal;
       success.textContent = data.success;
       renderClicks(data.clicks);
-      index = 0;
+      const state = loadState();
+      index = Number.isInteger(state[select.value]) ? state[select.value] : 0;
+      if (index < 0 || index >= data.steps.length) index = 0;
       renderStep();
     }
 
@@ -175,6 +200,17 @@
     reset.addEventListener("click", () => {
       index = 0;
       renderStep();
+    });
+    copyCommand.addEventListener("click", async () => {
+      const txt = commandBox.textContent.replace(/^\$\s*/, "");
+      await navigator.clipboard.writeText(txt);
+      copyCommand.textContent = "Copied";
+      setTimeout(() => (copyCommand.textContent = "Copy command"), 1000);
+    });
+    copyOutput.addEventListener("click", async () => {
+      await navigator.clipboard.writeText(outputBox.textContent);
+      copyOutput.textContent = "Copied";
+      setTimeout(() => (copyOutput.textContent = "Copy expected output"), 1000);
     });
 
     renderScenario();
