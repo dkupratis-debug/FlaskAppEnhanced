@@ -74,7 +74,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Link check
-        uses: lycheeverse/lychee-action@v1
+        uses: lycheeverse/lychee-action@v2.0.2
         with:
           args: --no-progress --verbose --exclude-mail --base . --exclude-path .github --exclude-path dist --exclude-path build --exclude-path .venv --exclude-path venv --exclude-path __pycache__ --exclude-path .pytest_cache --exclude-file .lycheeignore "**/*.md"
           fail: true
