@@ -30,6 +30,7 @@ Quick links:
 - [First 10 Minutes (Beginner Click Guide)](#first-10-minutes-beginner-click-guide)
 - [Practice Examples](#practice-examples)
 - [FAQ](#faq)
+- [Training Operations](#training-operations)
 - [Sharing for Learning](#sharing-for-learning)
 - [Public Launch Checklist](#public-launch-checklist)
 - [Analytics and Privacy](#analytics-and-privacy)
@@ -223,6 +224,11 @@ This file gives exact tasks, success checks, and a recommended order.
 For common learner questions, use:
 - `docs/FAQ.md`
 
+## Training Operations
+For maintainers running this repo as a training program, use:
+- `docs/TRAINING_OPERATIONS.md`
+- `docs/LEARNER_PROGRESS_TEMPLATE.md`
+
 ## Sharing for Learning
 To share this repo with learners effectively:
 
@@ -267,6 +273,8 @@ Start here:
 - `docs/PRACTICE_EXAMPLES.md` (guided exercises with success checks)
 - `docs/LEARNING_TRACKS.md` (structured training paths)
 - `docs/FAQ.md` (common questions and fixes)
+- `docs/TRAINING_OPERATIONS.md` (weekly/monthly training routine)
+- `docs/LEARNER_PROGRESS_TEMPLATE.md` (progress tracking template)
 - `docs/COACHING_REPLY_TEMPLATES.md` (support reply templates)
 - `CONTRIBUTING.md` (branching, commit, PR flow)
 - `docs/GITHUB_GUIDE.md` (GitHub UI walkthrough)

@@ -1,0 +1,53 @@
+name: Learner help request
+description: Ask for help while working through training tasks
+title: "[Help]: "
+labels: ["learning"]
+body:
+  - type: input
+    id: track
+    attributes:
+      label: Learning track
+      description: Which track are you on?
+      placeholder: "Track A (Beginner)"
+    validations:
+      required: true
+  - type: input
+    id: step
+    attributes:
+      label: Current step
+      description: Which step/exercise are you stuck on?
+      placeholder: "Practice Example 3, step 2"
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Short summary of the problem
+      placeholder: "I expected..., but I saw..."
+    validations:
+      required: true
+  - type: textarea
+    id: commands
+    attributes:
+      label: Commands you ran
+      description: Paste exact commands and outputs if relevant
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    id: error
+    attributes:
+      label: Error message
+      description: Paste the full error text
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: OS, Python version, and anything else relevant
+      placeholder: "Windows 11, Python 3.13"
+    validations:
+      required: true
