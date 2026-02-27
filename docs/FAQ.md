@@ -50,17 +50,17 @@ Registry-published artifact (for this repo, GHCR container image).
 
 ## Troubleshooting
 
-### I see permission errors with pytest cache folders.
+### I see permission errors with pytest cache folders
 Use:
 - `python -m pytest -q tests`
 
-### I see old commits on GitHub.
+### I see old commits on GitHub
 Make sure changes were committed and pushed:
 - `git add .`
 - `git commit -m "..."`
 - `git push`
 
-### I still need help.
+### I still need help
 Open an Issue and include:
 - what step you are on
 - what command you ran
