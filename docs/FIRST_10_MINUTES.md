@@ -20,38 +20,38 @@ In 10 minutes, you will:
 1. Open the repository homepage:
    - `https://github.com/dkupratis-debug/FlaskAppEnhanced`
    - Expected result: you can see the repo name and top tabs.
-2. Look at the top tabs:
+1. Look at the top tabs:
    - `Code`
    - `Issues`
    - `Pull requests`
    - `Actions`
    - `Releases`
    - Expected result: you understand where each workflow lives.
-3. Open the interactive dashboard route:
+1. Open the interactive dashboard route:
    - append `/learn` to the app URL when running locally (for example `http://127.0.0.1:5000/learn`)
    - Expected result: you see track selection, checklist, and quick links.
-4. Scroll the main page and read the top of `README.md`.
+1. Scroll the main page and read the top of `README.md`.
    - Expected result: you know what the project is and what it teaches.
-5. In the README, open:
+1. In the README, open:
    - `docs/GITHUB_GUIDE.md`
    - `docs/SAFE_SHARING.md` (if you want to share or post it)
    - Expected result: you can explain the main GitHub tabs and safe sharing basics.
-6. Click the `Issues` tab.
-7. Open the pinned issue:
+1. Click the `Issues` tab.
+1. Open the pinned issue:
    - `#9 Start Here: Learn GitHub + Flask using this repo`
    - Expected result: you can see the guided learning order.
-8. Pick one workshop issue:
+1. Pick one workshop issue:
    - `#4` tiny README improvement
    - `#5` inspect workflows
    - `#6` practice PR review
    - `#7` deploy a demo
    - Expected result: you have one concrete task to do next.
-9. Click the `Actions` tab and open a green run.
+1. Click the `Actions` tab and open a green run.
    - Expected result: you can see automated checks and logs.
-10. Click the `Releases` section and open the latest release.
+1. Click the `Releases` section and open the latest release.
    - Expected result: you can see release notes and versioned assets.
-11. Optional: click `Packages` to see the GHCR container package workflow result.
-    - Expected result: you understand Releases vs Packages.
+1. Optional: click `Packages` to see the GHCR container package workflow result.
+   - Expected result: you understand Releases vs Packages.
 
 ## If You Want to Practice Safely
 
