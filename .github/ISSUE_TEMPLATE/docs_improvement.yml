@@ -1,0 +1,36 @@
+name: Docs improvement
+description: Report unclear docs or request better learning guidance
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Documentation page
+      description: Which file or page needs improvement?
+      placeholder: "README.md or docs/FIRST_10_MINUTES.md"
+    validations:
+      required: true
+  - type: textarea
+    id: unclear
+    attributes:
+      label: What is unclear?
+      description: Describe exactly what was confusing.
+      placeholder: "Step 3 does not explain where to click..."
+    validations:
+      required: true
+  - type: textarea
+    id: improvement
+    attributes:
+      label: Suggested improvement
+      description: How should this be rewritten?
+    validations:
+      required: true
+  - type: textarea
+    id: audience
+    attributes:
+      label: Audience level
+      description: Which audience was affected?
+      placeholder: "Beginner with no GitHub background"
+    validations:
+      required: true
