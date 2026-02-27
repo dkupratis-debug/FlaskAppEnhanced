@@ -24,3 +24,57 @@ jobs:
         run: ruff check .
       - name: Tests
         run: pytest
+
+  precommit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pre-commit
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+      - name: Run pre-commit
+        run: pre-commit run --all-files --show-diff-on-failure
+
+  markdownlint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v18
+        with:
+          globs: |
+            **/*.md
+
+  yamllint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: yamllint
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          config_file: .yamllint.yml
+          file_or_dir: .
+          strict: true
+
+  links:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Link check
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: --no-progress --verbose --exclude-mail --base . --exclude-path .github --exclude-path dist --exclude-path build --exclude-path .venv --exclude-path venv --exclude-path __pycache__ --exclude-path .pytest_cache --exclude-file .lycheeignore "**/*.md"
+          fail: true

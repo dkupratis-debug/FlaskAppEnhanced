@@ -99,6 +99,8 @@ docker run --rm -p 8000:8000 -e SECRET_KEY=change-me ghcr.io/dkupratis-debug/fla
 ## Development Commands
 ```powershell
 pip install -r requirements-dev.txt
+pre-commit install
+pre-commit run --all-files
 ruff check .
 pytest
 ```
@@ -107,6 +109,11 @@ One-line local package build check:
 ```powershell
 python -m build
 ```
+
+Additional checks:
+- Markdown lint config: `.markdownlint.yml`
+- YAML lint config: `.yamllint.yml`
+- Link-check ignore list: `.lycheeignore`
 
 Task runners:
 - `Makefile` for Unix/macOS (`make test`, `make lint`, etc.)
