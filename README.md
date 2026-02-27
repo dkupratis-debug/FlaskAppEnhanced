@@ -10,9 +10,11 @@ This repository is also set up as a GitHub learning example: you can use it to u
 
 Quick links:
 - App docs and setup: `README.md`
+- Docs index: `docs/INDEX.md`
 - Role-based onboarding: `docs/START_HERE_BY_ROLE.md`
 - GitHub walkthrough: `docs/GITHUB_GUIDE.md`
 - CI troubleshooting: `docs/CI_TROUBLESHOOTING_FLOW.md`
+- Broken-to-fixed scenarios: `docs/BROKEN_TO_FIXED_SCENARIOS.md`
 - Quality scorecard: `docs/QUALITY_SCORECARD.md`
 - Discussions guide: `docs/DISCUSSIONS_GUIDE.md`
 - Start Here discussion: `https://github.com/dkupratis-debug/FlaskAppEnhanced/discussions/29`
@@ -35,7 +37,9 @@ Quick links:
 - [Learning Tracks](#learning-tracks)
 - [Start Here by Role](#start-here-by-role)
 - [Interactive Learning Dashboard](#interactive-learning-dashboard)
+- [Interactive Learning Lab](#interactive-learning-lab)
 - [CI Troubleshooting Flow](#ci-troubleshooting-flow)
+- [Broken to Fixed Scenarios](#broken-to-fixed-scenarios)
 - [First 10 Minutes (Beginner Click Guide)](#first-10-minutes-beginner-click-guide)
 - [Practice Examples](#practice-examples)
 - [FAQ](#faq)
@@ -226,9 +230,23 @@ This page provides:
 - progress checklist saved in browser (`localStorage`)
 - quick links to Start Here, weekly challenge, Actions, Releases, and help flow
 
+## Interactive Learning Lab
+For guided simulation demos, open:
+- `/learn-lab`
+
+This page includes:
+- first PR simulation
+- failing CI fix simulation
+- release/tag flow simulation
+- command and expected-output walk-throughs
+
 ## CI Troubleshooting Flow
 When any required GitHub check fails, use:
 - `docs/CI_TROUBLESHOOTING_FLOW.md`
+
+## Broken to Fixed Scenarios
+For structured "failure -> diagnosis -> fix" drills, use:
+- `docs/BROKEN_TO_FIXED_SCENARIOS.md`
 
 ## First 10 Minutes (Beginner Click Guide)
 If you are brand new to GitHub, start with:
@@ -308,6 +326,9 @@ Start here:
 - `docs/TRAINING_OPERATIONS.md` (weekly/monthly training routine)
 - `docs/LEARNER_PROGRESS_TEMPLATE.md` (progress tracking template)
 - `docs/COACHING_REPLY_TEMPLATES.md` (support reply templates)
+- `docs/templates/WEEKLY_DISCUSSION_PROMPT.md` (weekly engagement post template)
+- `docs/templates/MONTHLY_RECAP_TEMPLATE.md` (monthly recap template)
+- `docs/templates/LEARNER_HELP_RESPONSE_TEMPLATE.md` (Q&A response template)
 - `CONTRIBUTING.md` (branching, commit, PR flow)
 - `docs/GITHUB_GUIDE.md` (GitHub UI walkthrough)
 - `docs/PR_REVIEW_CHECKLIST.md` (how to review PRs)
