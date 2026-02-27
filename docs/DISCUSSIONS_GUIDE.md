@@ -7,6 +7,8 @@ Use GitHub Discussions for learner questions, ideas, and progress updates.
 - Start Here discussion: `https://github.com/dkupratis-debug/FlaskAppEnhanced/discussions/29`
 - Beginner click guide: `docs/FIRST_10_MINUTES.md`
 - Main walkthrough: `docs/GITHUB_GUIDE.md`
+- Engagement playbook: `docs/ENGAGEMENT_PLAYBOOK.md`
+- Engagement automation: `docs/ENGAGEMENT_AUTOMATION.md`
 - Weekly prompt template: `docs/templates/WEEKLY_DISCUSSION_PROMPT.md`
 - Monthly recap template: `docs/templates/MONTHLY_RECAP_TEMPLATE.md`
 - Learner support reply template: `docs/templates/LEARNER_HELP_RESPONSE_TEMPLATE.md`

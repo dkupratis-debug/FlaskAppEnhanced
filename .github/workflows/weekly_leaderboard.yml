@@ -1,0 +1,95 @@
+name: Weekly Leaderboard
+
+on:
+  schedule:
+    - cron: "0 13 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  leaderboard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create weekly leaderboard issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const now = new Date();
+            const since = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+            const sinceIso = since.toISOString();
+            const title = `Weekly Community Leaderboard (${now.toISOString().slice(0, 10)})`;
+
+            const scores = new Map();
+            const bump = (login, field, weight) => {
+              if (!login) return;
+              const row = scores.get(login) || { prOpened: 0, prMerged: 0, issuesOpened: 0, discussionsStarted: 0, score: 0 };
+              row[field] += 1;
+              row.score += weight;
+              scores.set(login, row);
+            };
+
+            // Pull requests
+            const pulls = await github.paginate(github.rest.pulls.list, {
+              owner, repo, state: "all", per_page: 100, sort: "updated", direction: "desc"
+            });
+            for (const pr of pulls) {
+              if (new Date(pr.created_at) >= since) bump(pr.user?.login, "prOpened", 3);
+              if (pr.merged_at && new Date(pr.merged_at) >= since) bump(pr.user?.login, "prMerged", 5);
+            }
+
+            // Issues (exclude PRs)
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner, repo, state: "all", since: sinceIso, per_page: 100
+            });
+            for (const issue of issues) {
+              if (issue.pull_request) continue;
+              if (new Date(issue.created_at) >= since) bump(issue.user?.login, "issuesOpened", 1);
+            }
+
+            // Discussions (started)
+            const discussionQuery = `
+              query($owner:String!, $name:String!) {
+                repository(owner:$owner, name:$name) {
+                  discussions(first: 100, orderBy:{field:UPDATED_AT, direction:DESC}) {
+                    nodes {
+                      createdAt
+                      author { login }
+                    }
+                  }
+                }
+              }
+            `;
+            const d = await github.graphql(discussionQuery, { owner, name: repo });
+            for (const node of d.repository.discussions.nodes) {
+              if (new Date(node.createdAt) >= since) bump(node.author?.login, "discussionsStarted", 2);
+            }
+
+            const rows = [...scores.entries()]
+              .sort((a, b) => b[1].score - a[1].score)
+              .slice(0, 15);
+
+            let body = `# Weekly Community Leaderboard\n\n`;
+            body += `Window: ${since.toISOString().slice(0, 10)} to ${now.toISOString().slice(0, 10)}\n\n`;
+            body += `| Rank | User | Score | PR Opened | PR Merged | Issues Opened | Discussions Started |\n`;
+            body += `|---|---|---:|---:|---:|---:|---:|\n`;
+            if (rows.length === 0) {
+              body += `| - | _No qualifying activity this week_ | 0 | 0 | 0 | 0 | 0 |\n`;
+            } else {
+              rows.forEach(([login, r], idx) => {
+                body += `| ${idx + 1} | @${login} | ${r.score} | ${r.prOpened} | ${r.prMerged} | ${r.issuesOpened} | ${r.discussionsStarted} |\n`;
+              });
+            }
+            body += `\nScoring: PR opened=3, PR merged=5, issue opened=1, discussion started=2.\n`;
+
+            await github.rest.issues.create({
+              owner,
+              repo,
+              title,
+              body,
+              labels: ["learning"]
+            });

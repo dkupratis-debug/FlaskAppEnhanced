@@ -1,0 +1,83 @@
+name: Playground Branch Generator
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: "Failure scenario to generate"
+        required: true
+        type: choice
+        options:
+          - markdownlint
+          - test
+          - yamllint
+          - links
+      create_pr:
+        description: "Open a PR automatically after branch push"
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create scenario branch
+        id: branch
+        run: |
+          SCENARIO="${{ inputs.scenario }}"
+          BRANCH="playground/${SCENARIO}-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+      - name: Apply scenario change
+        run: |
+          SCENARIO="${{ inputs.scenario }}"
+          if [ "$SCENARIO" = "markdownlint" ]; then
+            printf "\n   - intentionally bad indent for markdownlint drill\n11. wrong numbering style\n" >> docs/BROKEN_TO_FIXED_SCENARIOS.md
+          elif [ "$SCENARIO" = "test" ]; then
+            perl -0777 -i -pe "s/assert b\"FlaskAppEnhanced\" in res\\.data/assert b\"FlaskAppEnhanced-BROKEN\" in res.data/" tests/test_app.py
+          elif [ "$SCENARIO" = "yamllint" ]; then
+            printf "broken:\n   wrong: indent\n  bad: true\n" > .github/playground-invalid.yml
+          elif [ "$SCENARIO" = "links" ]; then
+            printf "\n- Broken training link: https://example.invalid/definitely-broken\n" >> README.md
+          fi
+
+      - name: Commit and push branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Create playground failing scenario: ${{ inputs.scenario }}"
+          git push -u origin "${{ steps.branch.outputs.branch }}"
+
+      - name: Open pull request
+        if: ${{ inputs.create_pr }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = `${{ steps.branch.outputs.branch }}`;
+            const scenario = `${{ inputs.scenario }}`;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            await github.rest.pulls.create({
+              owner,
+              repo,
+              head: branch,
+              base: "main",
+              title: `Playground scenario: failing ${scenario}`,
+              body: [
+                `This PR intentionally introduces a failing CI scenario for training.`,
+                ``,
+                `Scenario: \`${scenario}\``,
+                `Goal: practice diagnosis and fix workflow.`,
+                `Reference: docs/BROKEN_TO_FIXED_SCENARIOS.md`
+              ].join("\n")
+            });

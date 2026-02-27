@@ -132,6 +132,10 @@ def create_app():
     def learn():
         return render_template("learn.html")
 
+    @app.get("/launch")
+    def launch():
+        return render_template("launch.html")
+
     @app.get("/learn-lab")
     def learn_lab():
         return render_template("learn_lab.html")
