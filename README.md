@@ -10,7 +10,10 @@ This repository is also set up as a GitHub learning example: you can use it to u
 
 Quick links:
 - App docs and setup: `README.md`
+- Role-based onboarding: `docs/START_HERE_BY_ROLE.md`
 - GitHub walkthrough: `docs/GITHUB_GUIDE.md`
+- CI troubleshooting: `docs/CI_TROUBLESHOOTING_FLOW.md`
+- Quality scorecard: `docs/QUALITY_SCORECARD.md`
 - Discussions guide: `docs/DISCUSSIONS_GUIDE.md`
 - Start Here discussion: `https://github.com/dkupratis-debug/FlaskAppEnhanced/discussions/29`
 - Contributing workflow: `CONTRIBUTING.md`
@@ -30,10 +33,13 @@ Quick links:
 - [Troubleshooting](#troubleshooting)
 - [Learning Path](#learning-path)
 - [Learning Tracks](#learning-tracks)
+- [Start Here by Role](#start-here-by-role)
 - [Interactive Learning Dashboard](#interactive-learning-dashboard)
+- [CI Troubleshooting Flow](#ci-troubleshooting-flow)
 - [First 10 Minutes (Beginner Click Guide)](#first-10-minutes-beginner-click-guide)
 - [Practice Examples](#practice-examples)
 - [FAQ](#faq)
+- [Quality Scorecard](#quality-scorecard)
 - [Training Operations](#training-operations)
 - [Sharing for Learning](#sharing-for-learning)
 - [Public Launch Checklist](#public-launch-checklist)
@@ -206,6 +212,10 @@ Tracks included:
 - Intermediate
 - Maintainer
 
+## Start Here by Role
+Use role-based onboarding paths with exact first steps:
+- `docs/START_HERE_BY_ROLE.md`
+
 ## Interactive Learning Dashboard
 For an interactive in-app guide, open:
 - `/learn`
@@ -215,6 +225,10 @@ This page provides:
 - next action and expected result
 - progress checklist saved in browser (`localStorage`)
 - quick links to Start Here, weekly challenge, Actions, Releases, and help flow
+
+## CI Troubleshooting Flow
+When any required GitHub check fails, use:
+- `docs/CI_TROUBLESHOOTING_FLOW.md`
 
 ## First 10 Minutes (Beginner Click Guide)
 If you are brand new to GitHub, start with:
@@ -237,6 +251,10 @@ This file gives exact tasks, success checks, and a recommended order.
 ## FAQ
 For common learner questions, use:
 - `docs/FAQ.md`
+
+## Quality Scorecard
+For a plain-English quality and security posture snapshot, use:
+- `docs/QUALITY_SCORECARD.md`
 
 ## Training Operations
 For maintainers running this repo as a training program, use:
@@ -321,6 +339,7 @@ Screenshot/GIF placeholders and capture plan live in:
 - `docs/images/README.md`
 - `docs/images/CAPTURE_CHECKLIST.md`
 - `docs/images/LEARN_DASHBOARD_CAPTURE.md`
+- `docs/images/REPO_FLOW_MAP.md`
 
 Add screenshots there to make the GitHub guide more visual for friends and learners.
 
