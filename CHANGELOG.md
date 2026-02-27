@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.4] - 2026-02-27
+
+### Added
+- New `Interactive Learning Dashboard` section in `README.md` for the `/learn` route
+- Screenshot capture guide for the dashboard in `docs/images/LEARN_DASHBOARD_CAPTURE.md`
+
+### Changed
+- Updated `docs/FIRST_10_MINUTES.md` to include a direct `/learn` walkthrough step
+- Expanded `docs/images/README.md` with `learn-dashboard.png` guidance
+- Strengthened `/learn` test assertions in `tests/test_app.py` to verify key UI script markers
+
 ## [0.2.3] - 2026-02-26
 
 ### Fixed

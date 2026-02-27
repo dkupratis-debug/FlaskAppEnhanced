@@ -27,6 +27,7 @@ Quick links:
 - [Troubleshooting](#troubleshooting)
 - [Learning Path](#learning-path)
 - [Learning Tracks](#learning-tracks)
+- [Interactive Learning Dashboard](#interactive-learning-dashboard)
 - [First 10 Minutes (Beginner Click Guide)](#first-10-minutes-beginner-click-guide)
 - [Practice Examples](#practice-examples)
 - [FAQ](#faq)
@@ -202,6 +203,16 @@ Tracks included:
 - Intermediate
 - Maintainer
 
+## Interactive Learning Dashboard
+For an interactive in-app guide, open:
+- `/learn`
+
+This page provides:
+- track selection (Beginner, Intermediate, Maintainer)
+- next action and expected result
+- progress checklist saved in browser (`localStorage`)
+- quick links to Start Here, weekly challenge, Actions, Releases, and help flow
+
 ## First 10 Minutes (Beginner Click Guide)
 If you are brand new to GitHub, start with:
 - `docs/FIRST_10_MINUTES.md`
@@ -306,6 +317,7 @@ This repository is configured as a practical GitHub example and includes:
 Screenshot/GIF placeholders and capture plan live in:
 - `docs/images/README.md`
 - `docs/images/CAPTURE_CHECKLIST.md`
+- `docs/images/LEARN_DASHBOARD_CAPTURE.md`
 
 Add screenshots there to make the GitHub guide more visual for friends and learners.
 

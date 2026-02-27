@@ -47,6 +47,8 @@ def test_learn_dashboard_page_loads():
     assert res.status_code == 200
     assert b"Learning Dashboard" in res.data
     assert b"Choose a track" in res.data
+    assert b"const tracks" in res.data
+    assert b"localStorage" in res.data
 
 
 def test_production_requires_non_default_secret_key(monkeypatch):
