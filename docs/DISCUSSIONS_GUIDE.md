@@ -24,6 +24,13 @@ Use GitHub Discussions for learner questions, ideas, and progress updates.
 1. Close the loop by linking resolved PRs back into the discussion thread.
 1. Remove secrets, tokens, or sensitive information immediately if posted.
 
+## Response Time Expectations
+
+- `Q&A`: initial maintainer response target is within 24 hours.
+- `Learner help` style questions: target is same day when possible.
+- `Ideas` and `Show and tell`: acknowledge within 48 hours.
+- If an answer requires deeper investigation, post a status update in the thread so learners know it is being worked.
+
 ## Safety Rules for Public Learning
 
 - Never post `.env` values, API keys, or access tokens.

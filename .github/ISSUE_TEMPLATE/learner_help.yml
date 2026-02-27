@@ -3,6 +3,11 @@ description: Ask for help while working through training tasks
 title: "[Help]: "
 labels: ["learning"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        For fast support, you can also ask in Discussions Q&A:
+        https://github.com/dkupratis-debug/FlaskAppEnhanced/discussions/categories/q-a
   - type: input
     id: track
     attributes:

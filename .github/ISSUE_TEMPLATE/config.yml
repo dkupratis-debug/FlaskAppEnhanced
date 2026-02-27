@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Ask in Discussions (Q&A)
+    url: https://github.com/dkupratis-debug/FlaskAppEnhanced/discussions/categories/q-a
+    about: Ask beginner questions, troubleshooting questions, and workflow questions here.
   - name: Security vulnerability report
     url: https://github.com/dkupratis-debug/FlaskAppEnhanced/security/policy
     about: Please report security vulnerabilities using the repository security policy.
