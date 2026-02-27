@@ -1,3 +1,5 @@
+import pytest
+
 from app import create_app
 
 
@@ -36,3 +38,10 @@ def test_submit_form_page_includes_csrf_field():
     assert res.status_code == 200
     assert b'name="csrf_token"' in res.data
     assert res.headers["X-Content-Type-Options"] == "nosniff"
+
+
+def test_production_requires_non_default_secret_key(monkeypatch):
+    monkeypatch.setenv("FLASK_ENV", "production")
+    monkeypatch.delenv("SECRET_KEY", raising=False)
+    with pytest.raises(RuntimeError, match="Production requires a strong SECRET_KEY"):
+        create_app()

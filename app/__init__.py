@@ -53,11 +53,22 @@ def _normalize_limits(value):
     return ["200 per day", "50 per hour"]
 
 
+def _validate_production_secret_key(app, env):
+    if env != "production":
+        return
+    secret_key = str(app.config.get("SECRET_KEY", "")).strip()
+    if secret_key in {"", "dev-not-secret"}:
+        raise RuntimeError(
+            "Production requires a strong SECRET_KEY. Set SECRET_KEY in the environment."
+        )
+
+
 def create_app():
     app = Flask(__name__)
     env = os.environ.get("FLASK_ENV", "development").lower()
     config_obj = "config.ProductionConfig" if env == "production" else "config.DevelopmentConfig"
     app.config.from_object(config_obj)
+    _validate_production_secret_key(app, env)
     trust_proxy_count = int(app.config.get("TRUST_PROXY_COUNT", 0) or 0)
     if trust_proxy_count > 0:
         app.wsgi_app = ProxyFix(
