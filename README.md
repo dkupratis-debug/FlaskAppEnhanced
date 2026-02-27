@@ -26,8 +26,10 @@ Quick links:
 - [Deploy a Live Demo](#deploy-a-live-demo)
 - [Troubleshooting](#troubleshooting)
 - [Learning Path](#learning-path)
+- [Learning Tracks](#learning-tracks)
 - [First 10 Minutes (Beginner Click Guide)](#first-10-minutes-beginner-click-guide)
 - [Practice Examples](#practice-examples)
+- [FAQ](#faq)
 - [Sharing for Learning](#sharing-for-learning)
 - [Public Launch Checklist](#public-launch-checklist)
 - [Analytics and Privacy](#analytics-and-privacy)
@@ -190,6 +192,15 @@ Use this repo as a hands-on GitHub + Flask lab.
 3. Review code, tests, config, docs, and security impact
 4. Check CI and release/package workflows
 
+## Learning Tracks
+For structured training paths, use:
+- `docs/LEARNING_TRACKS.md`
+
+Tracks included:
+- Beginner
+- Intermediate
+- Maintainer
+
 ## First 10 Minutes (Beginner Click Guide)
 If you are brand new to GitHub, start with:
 - `docs/FIRST_10_MINUTES.md`
@@ -207,6 +218,10 @@ For guided exercises (beginner to intermediate), use:
 - `docs/PRACTICE_EXAMPLES.md`
 
 This file gives exact tasks, success checks, and a recommended order.
+
+## FAQ
+For common learner questions, use:
+- `docs/FAQ.md`
 
 ## Sharing for Learning
 To share this repo with learners effectively:
@@ -250,6 +265,9 @@ Start here:
 - `README.md` (project overview)
 - `docs/FIRST_10_MINUTES.md` (fast beginner click guide)
 - `docs/PRACTICE_EXAMPLES.md` (guided exercises with success checks)
+- `docs/LEARNING_TRACKS.md` (structured training paths)
+- `docs/FAQ.md` (common questions and fixes)
+- `docs/COACHING_REPLY_TEMPLATES.md` (support reply templates)
 - `CONTRIBUTING.md` (branching, commit, PR flow)
 - `docs/GITHUB_GUIDE.md` (GitHub UI walkthrough)
 - `docs/PR_REVIEW_CHECKLIST.md` (how to review PRs)
