@@ -48,6 +48,8 @@ Use this when a PR check fails.
 
 ### Build step fails locally with Windows temp permission error
 
+1. Try helper script first: `.\tools\build_local.ps1 -NoIsolation`
+1. If still failing, continue with manual temp override:
 1. Create local temp folder: `New-Item -ItemType Directory -Force .tmp\build-temp | Out-Null`
 1. Set temp vars:
    - `$env:TEMP = (Resolve-Path .tmp\build-temp).Path`

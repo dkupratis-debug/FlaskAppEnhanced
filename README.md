@@ -137,6 +137,11 @@ One-line local package build check:
 python -m build
 ```
 
+One-command local build helper:
+```powershell
+.\tools\build_local.ps1
+```
+
 If Windows reports `Access is denied` under `%LOCALAPPDATA%\\Temp`, run:
 ```powershell
 New-Item -ItemType Directory -Force .tmp\build-temp | Out-Null
