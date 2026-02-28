@@ -2,6 +2,12 @@
 
 This folder contains a local-only dashboard that tracks GitHub engagement trends for this repository.
 
+## Who Can Use It
+
+- Anyone who can access this repo can run this tool locally.
+- Users only see data their own token is allowed to access.
+- This tool does not expose maintainer credentials.
+
 ## What It Tracks
 
 - Views and unique visitors (14-day GitHub traffic window)
@@ -16,6 +22,19 @@ This folder contains a local-only dashboard that tracks GitHub engagement trends
 - Uses `GITHUB_TOKEN` from environment (never committed)
 - Optional local password gate via `DASHBOARD_PASSWORD`
 - Stores snapshots in local SQLite database (`tools/dashboard/data/engagement.db`)
+
+## Required Token Permissions (Recommended)
+
+Use a fine-grained PAT scoped to specific repositories with read-only access:
+
+- `Metadata: Read`
+- `Contents: Read`
+- `Issues: Read`
+- `Pull requests: Read`
+- `Actions: Read`
+- `Discussions: Read` (if using discussion metrics)
+
+Avoid broad classic tokens unless required by your environment.
 
 ## Quick Start (PowerShell)
 
@@ -33,6 +52,17 @@ python tools/dashboard/app.py
 Open:
 
 - `http://127.0.0.1:5050`
+
+Expected behavior:
+- First collector run prints a stored snapshot summary.
+- Dashboard shows cards, deltas, and snapshot history table.
+- If `DASHBOARD_PASSWORD` is set, login is required before viewing data.
+
+## Do Not Do This
+
+- Do not commit tokens to git.
+- Do not share `.env` values in issues/discussions/screenshots.
+- Do not change bind host to `0.0.0.0` unless you fully control network access.
 
 ## Daily Use
 

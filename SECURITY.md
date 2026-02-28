@@ -25,3 +25,21 @@ Include:
 - Keep dependencies updated and review security advisories.
 - Restrict CORS if you add API usage from browsers.
 - Set `LOG_FILE` to rotate logs in production.
+
+## Local Dashboard Safety
+The engagement dashboard in `tools/dashboard/` is local-only tooling.
+
+- It binds to `127.0.0.1` by default.
+- It requires each user to provide their own token locally.
+- Maintainer tokens are never shared through this repository.
+
+Token guidance:
+- Prefer fine-grained personal access tokens.
+- Restrict token access to only the repositories being monitored.
+- Use read-only permissions where possible.
+- Rotate or revoke tokens immediately if exposed.
+
+Never share:
+- `GITHUB_TOKEN` values
+- `.env` files
+- terminal screenshots containing secrets

@@ -25,6 +25,7 @@ Quick links:
 - Security reporting: `SECURITY.md`
 - Security best practices: `docs/SECURITY_BEST_PRACTICES.md`
 - Engagement automation: `docs/ENGAGEMENT_AUTOMATION.md`
+- Dashboard security guide: `docs/DASHBOARD_SECURITY_GUIDE.md`
 
 ## Table of Contents
 - [Features](#features)
@@ -336,9 +337,21 @@ Short version:
 If you want a local-only metrics dashboard for this repository:
 
 - Tutorial: `docs/DASHBOARD_TUTORIAL.md`
+- Security: `docs/DASHBOARD_SECURITY_GUIDE.md`
 - Tooling: `tools/dashboard/README.md`
 - Collector command: `python tools/dashboard/collector.py`
 - Local web UI: `python tools/dashboard/app.py` then open `http://127.0.0.1:5050`
+
+Important access model:
+- The dashboard code is public in this repo.
+- Metrics access depends on the token each user provides locally.
+- Do not share your token, `.env`, or local dashboard database.
+
+Minimum safe setup:
+1. Use a fine-grained GitHub token restricted to selected repos only.
+2. Grant read-only permissions needed for metrics.
+3. Set `DASHBOARD_PASSWORD` and `DASHBOARD_SECRET_KEY`.
+4. Keep dashboard bound to `127.0.0.1` only.
 
 ## Learn GitHub Using This Repo
 Start here:
