@@ -17,6 +17,8 @@ This roadmap keeps the project useful as both a Flask scaffold and a GitHub lear
 - Add a short walkthrough video link in `README.md`
 - Enable GitHub Discussions for beginner questions
 - Add more workshop issues (docs, tests, workflow-reading)
+- Publish at least one curated `good first issue` every week
+- Run monthly recap issue workflow and pin recap discussion summary
 
 ## Later (Professional Polish)
 

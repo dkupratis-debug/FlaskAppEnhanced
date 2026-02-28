@@ -13,6 +13,7 @@ Use this file as the top-level map for all training docs.
 - `docs/FIRST_10_MINUTES.md`
 - `docs/GITHUB_GUIDE.md`
 - `docs/PRACTICE_EXAMPLES.md`
+- `docs/GOOD_FIRST_ISSUES.md`
 - `docs/CI_TROUBLESHOOTING_FLOW.md`
 
 ## Operations and Security
@@ -29,6 +30,7 @@ Use this file as the top-level map for all training docs.
 - `docs/DISCUSSIONS_GUIDE.md`
 - `docs/ENGAGEMENT_PLAYBOOK.md`
 - `docs/ENGAGEMENT_AUTOMATION.md`
+- `docs/LABELS_GUIDE.md`
 - `docs/templates/WEEKLY_DISCUSSION_PROMPT.md`
 - `docs/templates/MONTHLY_RECAP_TEMPLATE.md`
 - `docs/templates/LEARNER_HELP_RESPONSE_TEMPLATE.md`

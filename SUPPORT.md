@@ -27,3 +27,11 @@ Use the right channel so questions and problems are easier to handle.
 
 ## Response Expectations
 This is a learning/demo repository. Responses may be best-effort and may not be immediate, but clear reproduction details make help much faster.
+
+## Target Service Levels (Best Effort)
+
+- New learner help request triage: within 48 hours
+- Bug report triage: within 72 hours
+- Security report acknowledgement: within 24 hours
+
+These are targets, not guaranteed SLAs. Public holidays and maintainer availability can affect timing.

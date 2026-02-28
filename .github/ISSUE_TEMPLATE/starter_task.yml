@@ -1,0 +1,39 @@
+name: Starter task (maintainer)
+description: Create a beginner-friendly good-first-issue task
+title: "[Starter Task]: "
+labels: ["good first issue", "learning"]
+body:
+  - type: input
+    id: objective
+    attributes:
+      label: Learning objective
+      description: What should a beginner learn from this task?
+      placeholder: "Learn how to edit docs and open a PR"
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: Task steps
+      description: Add click-by-click steps and commands.
+      placeholder: |
+        1. Fork the repo
+        2. Create a branch
+        3. Update docs/...
+    validations:
+      required: true
+  - type: textarea
+    id: success
+    attributes:
+      label: Success criteria
+      description: What should be true when done?
+      placeholder: "PR opened, checks pass, docs updated"
+    validations:
+      required: true
+  - type: textarea
+    id: hints
+    attributes:
+      label: Hints for beginners
+      description: Optional tips to avoid blockers.
+    validations:
+      required: false

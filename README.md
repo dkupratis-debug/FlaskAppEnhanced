@@ -20,6 +20,8 @@ Quick links:
 - Engagement playbook: `docs/ENGAGEMENT_PLAYBOOK.md`
 - Discussions guide: `docs/DISCUSSIONS_GUIDE.md`
 - Local engagement dashboard tutorial: `docs/DASHBOARD_TUTORIAL.md`
+- Good first issues backlog: `docs/GOOD_FIRST_ISSUES.md`
+- Labels and triage guide: `docs/LABELS_GUIDE.md`
 - Start Here discussion: `https://github.com/dkupratis-debug/FlaskAppEnhanced/discussions/29`
 - Contributing workflow: `CONTRIBUTING.md`
 - Security reporting: `SECURITY.md`
@@ -51,6 +53,7 @@ Quick links:
 - [FAQ](#faq)
 - [Quality Scorecard](#quality-scorecard)
 - [Training Operations](#training-operations)
+- [Security Posture](#security-posture)
 - [Sharing for Learning](#sharing-for-learning)
 - [Public Launch Checklist](#public-launch-checklist)
 - [Analytics and Privacy](#analytics-and-privacy)
@@ -295,6 +298,17 @@ For a plain-English quality and security posture snapshot, use:
 For maintainers running this repo as a training program, use:
 - `docs/TRAINING_OPERATIONS.md`
 - `docs/LEARNER_PROGRESS_TEMPLATE.md`
+
+## Security Posture
+Current hardening posture includes:
+
+- Protected `main` branch with required checks
+- Required review/approval flow before merge
+- Dependabot alerts and security updates
+- Secret scanning + push protection
+- Code scanning via CodeQL
+- Private vulnerability reporting enabled
+- Local dashboard guidance in `docs/DASHBOARD_SECURITY_GUIDE.md`
 
 ## Sharing for Learning
 To share this repo with learners effectively:
