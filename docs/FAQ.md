@@ -67,7 +67,13 @@ Open an Issue and include:
 - exact error text
 
 ### `python -m build` fails with temp-folder permission errors on Windows
-Use a repo-local temp path, then build without isolation:
+Try the helper first:
+
+```powershell
+.\tools\build_local.ps1 -NoIsolation
+```
+
+If that still fails, use a repo-local temp path, then build without isolation:
 
 ```powershell
 New-Item -ItemType Directory -Force .tmp\build-temp | Out-Null
