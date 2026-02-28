@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- No changes yet.
+
+## [0.3.0] - 2026-02-28
+
 ### Added
 - Local dashboard security guide (`docs/DASHBOARD_SECURITY_GUIDE.md`)
 - Labels guide (`docs/LABELS_GUIDE.md`)
