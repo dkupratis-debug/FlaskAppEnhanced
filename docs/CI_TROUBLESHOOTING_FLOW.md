@@ -46,6 +46,14 @@ Use this when a PR check fails.
 1. Re-run checks.
 1. Commit + push.
 
+### Build step fails locally with Windows temp permission error
+
+1. Create local temp folder: `New-Item -ItemType Directory -Force .tmp\build-temp | Out-Null`
+1. Set temp vars:
+   - `$env:TEMP = (Resolve-Path .tmp\build-temp).Path`
+   - `$env:TMP = $env:TEMP`
+1. Run build: `python -m build --no-isolation`
+
 ## Step 3: Confirm merge gates
 
 Even after checks pass, merge may still be blocked by policy:

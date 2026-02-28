@@ -137,6 +137,14 @@ One-line local package build check:
 python -m build
 ```
 
+If Windows reports `Access is denied` under `%LOCALAPPDATA%\\Temp`, run:
+```powershell
+New-Item -ItemType Directory -Force .tmp\build-temp | Out-Null
+$env:TEMP = (Resolve-Path .tmp\build-temp).Path
+$env:TMP = $env:TEMP
+python -m build --no-isolation
+```
+
 Additional checks:
 - Markdown lint config: `.markdownlint.yml`
 - YAML lint config: `.yamllint.yml`
