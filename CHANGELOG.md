@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- Local dashboard security guide (`docs/DASHBOARD_SECURITY_GUIDE.md`)
+- Labels guide (`docs/LABELS_GUIDE.md`)
+- Good first issues backlog (`docs/GOOD_FIRST_ISSUES.md`)
+- Starter-task issue template (`.github/ISSUE_TEMPLATE/starter_task.yml`)
+- Auto-label workflow and config (`.github/workflows/auto_label.yml`, `.github/labeler.yml`)
+- Monthly recap issue workflow (`.github/workflows/monthly_recap_issue.yml`)
+
+### Changed
+- Expanded `README.md` with security posture and onboarding links
+- Expanded `SUPPORT.md` with best-effort response targets
+- Expanded `docs/ENGAGEMENT_AUTOMATION.md` with monthly recap and auto-label details
+
 ## [0.2.4] - 2026-02-27
 
 ### Added

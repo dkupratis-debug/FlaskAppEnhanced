@@ -40,6 +40,33 @@ What it does:
 Use case:
 - Safe learner drills for "find failure -> fix -> green CI".
 
+## 3) Monthly Recap Issue Workflow
+
+Workflow file:
+- `.github/workflows/monthly_recap_issue.yml`
+
+What it does:
+1. Runs monthly (and manually with `workflow_dispatch`).
+1. Opens a recap issue with:
+   - open issues count
+   - open PR count
+   - recent workflow failure signal
+1. Adds a checklist for owner review and operations hygiene.
+
+Use case:
+- Repeatable monthly cadence and transparent progress logging.
+
+## 4) Auto Label Workflow
+
+Workflow files:
+- `.github/workflows/auto_label.yml`
+- `.github/labeler.yml`
+
+What it does:
+1. Applies labels to PRs based on changed file patterns.
+1. Helps beginners and reviewers quickly understand PR scope.
+1. Supports faster triage without replacing manual review.
+
 ## Safety Notes
 
 - These workflows are for training operations, not production deployment.

@@ -1,0 +1,41 @@
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docs/**"
+          - "**/*.md"
+
+tests:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "tests/**"
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/workflows/**"
+          - ".pre-commit-config.yaml"
+          - ".markdownlint.yml"
+          - ".yamllint.yml"
+
+dashboard:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "tools/dashboard/**"
+
+frontend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "app/templates/**"
+          - "app/static/**"
+
+backend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "app/**"
+          - "config.py"
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "requirements*.txt"
+          - "pyproject.toml"
