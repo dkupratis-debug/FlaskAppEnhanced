@@ -11,3 +11,5 @@ dist/
 build/
 *.egg-info/
 .tmp/
+tools/dashboard/data/*.db
+tools/dashboard/data/*.sqlite*

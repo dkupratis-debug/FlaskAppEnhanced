@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FlaskAppEnhanced Engagement Dashboard</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --ink: #16202a;
+      --accent: #0f766e;
+      --accent-2: #115e59;
+      --card: #ffffff;
+      --line: #d7e0ea;
+      --ok: #166534;
+      --warn: #92400e;
+      --bad: #b91c1c;
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: radial-gradient(circle at 5% 5%, #e0fbf7 0%, var(--bg) 55%);
+      color: var(--ink);
+    }
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      gap: 0.75rem;
+    }
+    .title {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+    .hint {
+      margin: 0.15rem 0 0;
+      color: #475569;
+      font-size: 0.92rem;
+    }
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    button {
+      border: 0;
+      border-radius: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      color: #fff;
+      background: var(--accent);
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button:hover { background: var(--accent-2); }
+    .secondary {
+      background: #475569;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 0.75rem;
+      padding: 0.75rem;
+    }
+    .label {
+      font-size: 0.8rem;
+      color: #334155;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .value {
+      margin-top: 0.2rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .delta {
+      margin-top: 0.2rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .up { color: var(--ok); }
+    .flat { color: var(--warn); }
+    .down { color: var(--bad); }
+    .panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 0.75rem;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px;
+    }
+    th, td {
+      text-align: left;
+      font-size: 0.88rem;
+      padding: 0.55rem;
+      border-bottom: 1px solid #edf2f7;
+    }
+    th { background: #f8fafc; }
+    .flash { padding: 0.55rem 0.75rem; border-radius: 0.5rem; margin-bottom: 0.75rem; }
+    .success { background: #dcfce7; color: #14532d; }
+    .warning { background: #fef3c7; color: #78350f; }
+    .error { background: #fee2e2; color: #7f1d1d; }
+    @media (max-width: 640px) {
+      .topbar { flex-direction: column; align-items: flex-start; }
+      .actions { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div>
+        <h1 class="title">Local Engagement Dashboard</h1>
+        <p class="hint">Repo: {{ repo }} | Local-only endpoint: <code>127.0.0.1</code></p>
+        {% if not auth_enabled %}
+          <p class="hint">Security note: set <code>DASHBOARD_PASSWORD</code> to require login.</p>
+        {% endif %}
+      </div>
+      <div class="actions">
+        <form method="post" action="{{ url_for('collect') }}">
+          <button type="submit">Collect Snapshot</button>
+        </form>
+        {% if auth_enabled %}
+          <form method="post" action="{{ url_for('logout') }}">
+            <button type="submit" class="secondary">Logout</button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+
+    {% with msgs = get_flashed_messages(with_categories=true) %}
+      {% for category, message in msgs %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    {% if latest %}
+      <section class="cards">
+        {% set metrics = [
+          ('Views (14d)', 'views_count'),
+          ('Unique Visitors (14d)', 'views_uniques'),
+          ('Clones (14d)', 'clones_count'),
+          ('Unique Cloners (14d)', 'clones_uniques'),
+          ('Open Issues', 'open_issues'),
+          ('Open PRs', 'open_prs'),
+          ('Discussions', 'discussions_count'),
+          ('Discussion Comments', 'discussion_comments_total'),
+          ('Workflow Runs (24h)', 'workflow_runs_24h'),
+          ('Workflow Failures (24h)', 'workflow_failures_24h')
+        ] %}
+        {% for title, key in metrics %}
+          <article class="card">
+            <div class="label">{{ title }}</div>
+            <div class="value">{{ latest[key] }}</div>
+            {% if previous and key in delta %}
+              {% set d = delta[key] %}
+              {% set cls = 'flat' %}
+              {% if d > 0 %}{% set cls = 'up' %}{% elif d < 0 %}{% set cls = 'down' %}{% endif %}
+              <div class="delta {{ cls }}">Delta: {{ '%+d'|format(d) }}</div>
+            {% else %}
+              <div class="delta flat">Delta: n/a</div>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </section>
+
+      <section class="panel">
+        <table>
+          <thead>
+            <tr>
+              <th>Captured (UTC)</th>
+              <th>Views</th>
+              <th>Visitors</th>
+              <th>Clones</th>
+              <th>Cloners</th>
+              <th>Issues</th>
+              <th>PRs</th>
+              <th>Discussions</th>
+              <th>Disc. Comments</th>
+              <th>Runs (24h)</th>
+              <th>Failures (24h)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in snapshots %}
+              <tr>
+                <td>{{ row.captured_at }}</td>
+                <td>{{ row.views_count }}</td>
+                <td>{{ row.views_uniques }}</td>
+                <td>{{ row.clones_count }}</td>
+                <td>{{ row.clones_uniques }}</td>
+                <td>{{ row.open_issues }}</td>
+                <td>{{ row.open_prs }}</td>
+                <td>{{ row.discussions_count }}</td>
+                <td>{{ row.discussion_comments_total }}</td>
+                <td>{{ row.workflow_runs_24h }}</td>
+                <td>{{ row.workflow_failures_24h }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+    {% else %}
+      <div class="panel" style="padding: 1rem;">
+        <p>No snapshots yet. Click <strong>Collect Snapshot</strong> to start tracking engagement.</p>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>

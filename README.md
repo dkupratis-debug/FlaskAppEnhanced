@@ -19,6 +19,7 @@ Quick links:
 - Quality scorecard: `docs/QUALITY_SCORECARD.md`
 - Engagement playbook: `docs/ENGAGEMENT_PLAYBOOK.md`
 - Discussions guide: `docs/DISCUSSIONS_GUIDE.md`
+- Local engagement dashboard tutorial: `docs/DASHBOARD_TUTORIAL.md`
 - Start Here discussion: `https://github.com/dkupratis-debug/FlaskAppEnhanced/discussions/29`
 - Contributing workflow: `CONTRIBUTING.md`
 - Security reporting: `SECURITY.md`
@@ -52,6 +53,7 @@ Quick links:
 - [Sharing for Learning](#sharing-for-learning)
 - [Public Launch Checklist](#public-launch-checklist)
 - [Analytics and Privacy](#analytics-and-privacy)
+- [Local Engagement Dashboard (Maintainer)](#local-engagement-dashboard-maintainer)
 - [Learn GitHub Using This Repo](#learn-github-using-this-repo)
 - [GitHub Page Anatomy (Quick Reference)](#github-page-anatomy-quick-reference)
 - [Security Notes](#security-notes)
@@ -329,6 +331,14 @@ Short version:
 - Use GitHub `Insights -> Traffic` for repo-level traffic (views/clones/referrers)
 - Use app logs for demo usage patterns
 - Prefer aggregate, privacy-first analytics over invasive user tracking
+
+## Local Engagement Dashboard (Maintainer)
+If you want a local-only metrics dashboard for this repository:
+
+- Tutorial: `docs/DASHBOARD_TUTORIAL.md`
+- Tooling: `tools/dashboard/README.md`
+- Collector command: `python tools/dashboard/collector.py`
+- Local web UI: `python tools/dashboard/app.py` then open `http://127.0.0.1:5050`
 
 ## Learn GitHub Using This Repo
 Start here:

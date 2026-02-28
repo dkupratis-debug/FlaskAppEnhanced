@@ -20,6 +20,7 @@ Use this file as the top-level map for all training docs.
 - `docs/TRAINING_OPERATIONS.md`
 - `docs/QUALITY_SCORECARD.md`
 - `docs/SECURITY_BEST_PRACTICES.md`
+- `docs/DASHBOARD_TUTORIAL.md`
 - `SECURITY.md`
 
 ## Discussions and Engagement
