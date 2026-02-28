@@ -68,6 +68,68 @@ def _request_json(url: str, method: str = "GET", payload: dict[str, Any] | None 
         raise RuntimeError(f"Network error for {url}: {exc}") from exc
 
 
+def _request_json_with_headers(
+    url: str, method: str = "GET", payload: dict[str, Any] | None = None
+) -> tuple[Any, dict[str, str]]:
+    data = None
+    headers = _headers()
+    if payload is not None:
+        data = json.dumps(payload).encode("utf-8")
+        headers["Content-Type"] = "application/json"
+
+    req = Request(url, data=data, method=method, headers=headers)
+    try:
+        with urlopen(req, timeout=25) as response:
+            body = json.loads(response.read().decode("utf-8"))
+            resp_headers = {k.lower(): v for k, v in response.headers.items()}
+            return body, resp_headers
+    except HTTPError as exc:
+        body = exc.read().decode("utf-8", errors="ignore")
+        raise RuntimeError(f"GitHub API error {exc.code} for {url}: {body}") from exc
+    except URLError as exc:
+        raise RuntimeError(f"Network error for {url}: {exc}") from exc
+
+
+def _next_link(headers: dict[str, str]) -> str | None:
+    link_header = headers.get("link", "")
+    if not link_header:
+        return None
+    for part in link_header.split(","):
+        section = part.strip()
+        if 'rel="next"' not in section:
+            continue
+        start = section.find("<")
+        end = section.find(">", start + 1)
+        if start != -1 and end != -1:
+            return section[start + 1 : end]
+    return None
+
+
+def _paginate_rest(url: str) -> list[dict[str, Any]]:
+    items: list[dict[str, Any]] = []
+    next_url: str | None = url
+    while next_url:
+        body, headers = _request_json_with_headers(next_url)
+        if not isinstance(body, list):
+            break
+        items.extend(body)
+        next_url = _next_link(headers)
+    return items
+
+
+def _paginate_workflow_runs(url: str) -> list[dict[str, Any]]:
+    runs: list[dict[str, Any]] = []
+    next_url: str | None = url
+    while next_url:
+        body, headers = _request_json_with_headers(next_url)
+        if not isinstance(body, dict):
+            break
+        for run in body.get("workflow_runs", []):
+            runs.append(run)
+        next_url = _next_link(headers)
+    return runs
+
+
 def _graphql(query: str) -> Any:
     return _request_json(GRAPHQL_URL, method="POST", payload={"query": query})
 
@@ -84,7 +146,7 @@ def _fetch_views_clones(repo: str) -> dict[str, int]:
 
 
 def _fetch_issue_pr_counts(repo: str) -> dict[str, int]:
-    issues = _request_json(f"{API_BASE}/repos/{repo}/issues?state=open&per_page=100")
+    issues = _paginate_rest(f"{API_BASE}/repos/{repo}/issues?state=open&per_page=100")
     open_issues = 0
     open_prs = 0
     for item in issues:
@@ -96,35 +158,53 @@ def _fetch_issue_pr_counts(repo: str) -> dict[str, int]:
 
 
 def _fetch_discussions(repo_owner: str, repo_name: str) -> dict[str, int]:
-    query = f"""
-    query {{
-      repository(owner: \"{repo_owner}\", name: \"{repo_name}\") {{
-        discussions(first: 50, orderBy: {{field: UPDATED_AT, direction: DESC}}) {{
-          totalCount
-          nodes {{
-            comments {{ totalCount }}
+    total_count = 0
+    comment_total = 0
+    has_next = True
+    cursor = "null"
+
+    while has_next:
+        query = f"""
+        query {{
+          repository(owner: \"{repo_owner}\", name: \"{repo_name}\") {{
+            discussions(
+              first: 100,
+              after: {cursor},
+              orderBy: {{field: UPDATED_AT, direction: DESC}}
+            ) {{
+              totalCount
+              pageInfo {{ hasNextPage endCursor }}
+              nodes {{
+                comments {{ totalCount }}
+              }}
+            }}
           }}
         }}
-      }}
-    }}
-    """
-    result = _graphql(query)
-    if result.get("errors"):
-        raise RuntimeError(f"GraphQL error: {result['errors']}")
-    discussions = result["data"]["repository"]["discussions"]
-    comment_total = sum(int(n["comments"]["totalCount"]) for n in discussions["nodes"])
-    return {
-        "discussions_count": int(discussions["totalCount"]),
-        "discussion_comments_total": comment_total,
-    }
+        """
+        result = _graphql(query)
+        if result.get("errors"):
+            raise RuntimeError(f"GraphQL error: {result['errors']}")
+        discussions = result["data"]["repository"]["discussions"]
+        total_count = int(discussions["totalCount"])
+        comment_total += sum(int(n["comments"]["totalCount"]) for n in discussions["nodes"])
+
+        page_info = discussions["pageInfo"]
+        has_next = bool(page_info["hasNextPage"])
+        cursor_value = page_info["endCursor"]
+        if has_next and cursor_value:
+            cursor = f'"{cursor_value}"'
+        else:
+            cursor = "null"
+
+    return {"discussions_count": total_count, "discussion_comments_total": comment_total}
 
 
 def _fetch_workflow_health(repo: str) -> dict[str, int]:
     since = datetime.now(timezone.utc) - timedelta(days=1)
-    runs = _request_json(f"{API_BASE}/repos/{repo}/actions/runs?per_page=100")
+    runs = _paginate_workflow_runs(f"{API_BASE}/repos/{repo}/actions/runs?per_page=100")
     runs_24h = 0
     failures_24h = 0
-    for run in runs.get("workflow_runs", []):
+    for run in runs:
         created_at = datetime.fromisoformat(run["created_at"].replace("Z", "+00:00"))
         if created_at < since:
             continue
