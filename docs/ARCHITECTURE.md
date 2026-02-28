@@ -27,12 +27,12 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    apppy[app.py / wsgi.py] --> createapp[app.create_app()]
-    createapp --> configpy[config.py]
-    createapp --> ratelimit[app/ratelimit.py]
-    createapp --> templates[app/templates/*.html]
-    createapp --> static[app/static/*]
-    createapp --> tests[tests/test_app.py]
+    app_entry["app.py or wsgi.py"] --> create_app["app.create_app"]
+    create_app --> config_py["config.py"]
+    create_app --> rate_limit["app/ratelimit.py"]
+    create_app --> templates["app/templates"]
+    create_app --> static_assets["app/static"]
+    create_app --> tests["tests/test_app.py"]
 ```
 
 ## Security-Relevant Components
