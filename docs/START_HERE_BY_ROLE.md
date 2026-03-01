@@ -2,6 +2,9 @@
 
 Use this page to jump directly to the right learning path.
 
+If you want one universal entry point first, read:
+- `docs/START_HERE.md`
+
 ## Beginner Path (first 60 minutes)
 
 1. Open `README.md`.
@@ -52,3 +55,9 @@ Expected outcome:
 
 Expected outcome:
 - You can run the repo as a safe, consistent training program.
+
+## Cross-Role References
+
+- Universal start path: `docs/START_HERE.md`
+- Troubleshooting path: `docs/CI_TROUBLESHOOTING_FLOW.md`
+- Security baseline: `docs/SECURITY_BEST_PRACTICES.md`

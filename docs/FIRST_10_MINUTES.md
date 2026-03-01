@@ -10,6 +10,9 @@ In 10 minutes, you will:
 - see where practice tasks live
 - see where updates/checks happen
 
+Related entry page:
+- `docs/START_HERE.md`
+
 ## What You Need
 
 - A web browser

@@ -2,11 +2,28 @@
 
 Use this file as the top-level map for all training docs.
 
+## Start Here
+
+- `docs/START_HERE.md` (single entry point)
+- `docs/FIRST_10_MINUTES.md` (fast click-by-click onboarding)
+- `docs/START_HERE_BY_ROLE.md` (role-based path)
+
 ## Start by Audience
 
 - Beginner: `docs/START_HERE_BY_ROLE.md`
 - Reviewer: `docs/START_HERE_BY_ROLE.md`
 - Maintainer: `docs/START_HERE_BY_ROLE.md`
+
+## Start by Goal
+
+- Learn GitHub basics quickly: `docs/FIRST_10_MINUTES.md`
+- Practice with guided tasks: `docs/PRACTICE_EXAMPLES.md`
+- Find one beginner task now: `docs/GOOD_FIRST_ISSUES.md`
+- Review a PR safely: `docs/PR_REVIEW_CHECKLIST.md`
+- Fix failing CI checks: `docs/CI_TROUBLESHOOTING_FLOW.md`
+- Run the training program: `docs/TRAINING_OPERATIONS.md`
+- Share safely in public: `docs/SAFE_SHARING.md`
+- Track engagement locally: `docs/DASHBOARD_TUTORIAL.md`
 
 ## Fast Start Guides
 
@@ -46,3 +63,7 @@ Use this file as the top-level map for all training docs.
 - `docs/images/README.md`
 - `docs/images/REPO_FLOW_MAP.md`
 - `docs/images/CAPTURE_CHECKLIST.md`
+
+## Documentation Quality
+
+- `docs/DOCUMENTATION_STANDARDS.md`
