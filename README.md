@@ -329,7 +329,7 @@ For maintainers running this repo as a training program, use:
 Current hardening posture includes:
 
 - Protected `main` branch with required checks
-- Required review/approval flow before merge
+- Required review/approval flow before merge (1 approval, CODEOWNERS review, last-push approval)
 - Dependabot alerts and security updates
 - Secret scanning + push protection
 - Code scanning via CodeQL
