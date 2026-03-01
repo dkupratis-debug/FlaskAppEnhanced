@@ -51,6 +51,8 @@ What it does:
    - open issues count
    - open PR count
    - recent workflow failure signal
+   - first-time contributor PR count (30-day window)
+   - unique non-bot PR contributors (30-day window)
 1. Adds a checklist for owner review and operations hygiene.
 
 Use case:
@@ -66,6 +68,32 @@ What it does:
 1. Applies labels to PRs based on changed file patterns.
 1. Helps beginners and reviewers quickly understand PR scope.
 1. Supports faster triage without replacing manual review.
+
+## 5) Weekly Check-In Issue Workflow
+
+Workflow file:
+- `.github/workflows/weekly_checkin_issue.yml`
+
+What it does:
+1. Runs weekly (and manually with `workflow_dispatch`).
+1. Opens a learner check-in issue with standard progress prompts.
+1. Improves visibility into blockers and response SLAs.
+
+Template used:
+- `docs/templates/WEEKLY_CHECKIN_TEMPLATE.md`
+
+## 6) Docs Quality Workflow
+
+Workflow file:
+- `.github/workflows/docs_quality.yml`
+
+What it does:
+1. Runs a docs audit script on pushes/PRs to `main`.
+1. Verifies required docs exist and are linked in `docs/INDEX.md`.
+1. Verifies markdown fences are balanced (prevents common render/parse issues).
+
+Script:
+- `tools/docs_audit.py`
 
 ## Safety Notes
 

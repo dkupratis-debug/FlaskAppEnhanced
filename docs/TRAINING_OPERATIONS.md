@@ -41,6 +41,22 @@ After following this playbook, maintainers should be able to:
 - Average time to first maintainer response
 - Common failure categories (tests, lint, workflow, git basics)
 
+## Instructor Dashboard Targets
+
+Use these baseline targets to keep training outcomes measurable:
+
+1. First learner response time: under 24 hours
+2. Weekly active learners: at least 3 unique learners
+3. Weekly learner PRs: at least 3 opened, at least 2 merged
+4. CI success rate on learner PRs: at least 80 percent
+5. Learner blocker resolution time: under 72 hours
+
+Track these with:
+
+- `Insights -> Traffic`
+- weekly check-in issues (`.github/workflows/weekly_checkin_issue.yml`)
+- monthly recap issue (`.github/workflows/monthly_recap_issue.yml`)
+
 ## Support Priority Triage
 
 1. Security concern

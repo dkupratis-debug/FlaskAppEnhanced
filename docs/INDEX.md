@@ -48,6 +48,7 @@ Use this file as the top-level map for all training docs.
 - `docs/ENGAGEMENT_PLAYBOOK.md`
 - `docs/ENGAGEMENT_AUTOMATION.md`
 - `docs/LABELS_GUIDE.md`
+- `docs/templates/WEEKLY_CHECKIN_TEMPLATE.md`
 - `docs/templates/WEEKLY_DISCUSSION_PROMPT.md`
 - `docs/templates/MONTHLY_RECAP_TEMPLATE.md`
 - `docs/templates/LEARNER_HELP_RESPONSE_TEMPLATE.md`
@@ -67,3 +68,4 @@ Use this file as the top-level map for all training docs.
 ## Documentation Quality
 
 - `docs/DOCUMENTATION_STANDARDS.md`
+- `tools/docs_audit.py`

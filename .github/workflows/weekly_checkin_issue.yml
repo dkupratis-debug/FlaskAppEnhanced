@@ -1,0 +1,48 @@
+name: Weekly Learner Check-In Issue
+
+on:
+  schedule:
+    - cron: "0 15 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  create-checkin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create weekly check-in issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const today = new Date().toISOString().slice(0, 10);
+            const title = `Weekly Learner Check-In (${today})`;
+
+            const body = [
+              "# Weekly Learner Check-In",
+              "",
+              "Use this issue to report learner progress for the week.",
+              "",
+              "## Prompts",
+              "- What did you complete this week?",
+              "- What blocked you?",
+              "- Which step was most confusing?",
+              "- What should be improved for next week?",
+              "",
+              "## References",
+              "- docs/templates/WEEKLY_CHECKIN_TEMPLATE.md",
+              "- docs/LEARNER_PROGRESS_TEMPLATE.md",
+              "- docs/TRAINING_OPERATIONS.md"
+            ].join("\\n");
+
+            await github.rest.issues.create({
+              owner,
+              repo,
+              title,
+              body,
+              labels: ["learning"]
+            });
