@@ -2,6 +2,19 @@
 
 This guide explains where to go in GitHub and what each part means, using `FlaskAppEnhanced` as the example.
 
+## Audience
+
+- Beginner learners using GitHub for the first time
+- Contributors preparing to open or review pull requests
+
+## Expected Outcome
+
+After this guide, you should be able to:
+
+1. Navigate the core GitHub tabs confidently
+2. Find where quality/security checks run
+3. Explain the difference between Issues, PRs, Actions, and Releases
+
 ## Visual Walkthrough (Optional but Recommended)
 To make this guide more intuitive for learners, add screenshots/GIFs in `docs/images/` and link them from this file.
 

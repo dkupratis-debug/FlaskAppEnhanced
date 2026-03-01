@@ -2,11 +2,25 @@
 
 Use these exercises to practice GitHub skills from beginner to intermediate.
 
+## Audience
+
+- Beginners learning basic GitHub flow
+- Intermediate learners practicing review and release workflows
+
+## Expected Outcome
+
+By completing these exercises, you should be able to:
+
+1. Open and review pull requests safely
+2. Read CI checks and diagnose common failures
+3. Understand releases/packages and versioned changes
+
 ## How to Use This File
 
 1. Pick one exercise.
 2. Do it in your own fork first.
 3. Use the "Success check" section to confirm you did it right.
+4. Track completion in `docs/LEARNER_PROGRESS_TEMPLATE.md`.
 
 ## Beginner (Start Here)
 
