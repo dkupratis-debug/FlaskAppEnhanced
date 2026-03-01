@@ -9,6 +9,7 @@ Checks:
 from __future__ import annotations
 
 from pathlib import Path
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
@@ -49,14 +50,36 @@ def check_index_links() -> None:
 
 
 def check_markdown_fences() -> None:
+    fence_re = re.compile(r"^[ \t]{0,3}([`~]{3,})(.*)$")
     problems = []
     for path in ROOT.rglob("*.md"):
         lines = path.read_text(encoding="utf-8").splitlines()
-        open_fence = False
+        open_fence_char = None
+        open_fence_len = 0
         for line in lines:
-            if line.strip().startswith("```"):
-                open_fence = not open_fence
-        if open_fence:
+            match = fence_re.match(line)
+            if not match:
+                continue
+
+            marker = match.group(1)
+            marker_char = marker[0]
+            marker_len = len(marker)
+            trailer = match.group(2).strip()
+
+            if open_fence_char is None:
+                open_fence_char = marker_char
+                open_fence_len = marker_len
+                continue
+
+            if (
+                marker_char == open_fence_char
+                and marker_len >= open_fence_len
+                and trailer == ""
+            ):
+                open_fence_char = None
+                open_fence_len = 0
+
+        if open_fence_char is not None:
             problems.append(str(path.relative_to(ROOT)))
     if problems:
         fail("Unbalanced markdown fences:\n- " + "\n- ".join(problems))
