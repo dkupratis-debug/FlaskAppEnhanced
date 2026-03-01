@@ -10,6 +10,7 @@ This repository is also set up as a GitHub learning example: you can use it to u
 
 Quick links:
 - App docs and setup: `README.md`
+- Start here (single doc entry): `docs/START_HERE.md`
 - Public launchpad page: `/launch`
 - Docs index: `docs/INDEX.md`
 - Role-based onboarding: `docs/START_HERE_BY_ROLE.md`
@@ -40,6 +41,7 @@ Quick links:
 - [Production Run (Example)](#production-run-example)
 - [Deploy a Live Demo](#deploy-a-live-demo)
 - [Troubleshooting](#troubleshooting)
+- [Documentation Navigation](#documentation-navigation)
 - [Learning Path](#learning-path)
 - [Learning Tracks](#learning-tracks)
 - [Start Here by Role](#start-here-by-role)
@@ -59,6 +61,7 @@ Quick links:
 - [Analytics and Privacy](#analytics-and-privacy)
 - [Local Engagement Dashboard (Maintainer)](#local-engagement-dashboard-maintainer)
 - [Learn GitHub Using This Repo](#learn-github-using-this-repo)
+- [Documentation Standards](#documentation-standards)
 - [GitHub Page Anatomy (Quick Reference)](#github-page-anatomy-quick-reference)
 - [Security Notes](#security-notes)
 
@@ -209,6 +212,16 @@ This repo disables pytest's cache provider in `pyproject.toml` to avoid noisy pe
 ### Releases vs Packages on GitHub
 - `Releases` in this repo contains versioned source/wheel artifacts (for example `v0.2.0`)
 - `Packages` is for registry-published packages (this repo publishes a container image to GHCR via Actions)
+
+## Documentation Navigation
+Use this order if you want the clearest learning sequence:
+
+1. `docs/START_HERE.md`
+2. `docs/FIRST_10_MINUTES.md`
+3. `docs/GITHUB_GUIDE.md`
+4. `docs/PRACTICE_EXAMPLES.md`
+5. `docs/CI_TROUBLESHOOTING_FLOW.md`
+6. `docs/TRAINING_OPERATIONS.md` (maintainers)
 
 ## Learning Path
 Use this repo as a hands-on GitHub + Flask lab.
@@ -408,6 +421,11 @@ Start here:
 - `.github/PULL_REQUEST_TEMPLATE.md` (PR structure)
 - `.github/ISSUE_TEMPLATE/` (issue forms)
 - `SECURITY.md` (security policy)
+
+## Documentation Standards
+For contributors updating docs:
+
+- `docs/DOCUMENTATION_STANDARDS.md`
 
 ## GitHub Setup Status (Example Repo)
 This repository is configured as a practical GitHub example and includes:
