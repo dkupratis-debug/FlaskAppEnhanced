@@ -23,6 +23,7 @@ After this guide, you should be able to:
 - Engagement playbook: `docs/ENGAGEMENT_PLAYBOOK.md`
 - Engagement automation: `docs/ENGAGEMENT_AUTOMATION.md`
 - Weekly prompt template: `docs/templates/WEEKLY_DISCUSSION_PROMPT.md`
+- Weekly check-in template: `docs/templates/WEEKLY_CHECKIN_TEMPLATE.md`
 - Monthly recap template: `docs/templates/MONTHLY_RECAP_TEMPLATE.md`
 - Learner support reply template: `docs/templates/LEARNER_HELP_RESPONSE_TEMPLATE.md`
 - Maintainer cadence guide: `docs/ENGAGEMENT_PLAYBOOK.md`
@@ -42,6 +43,15 @@ After this guide, you should be able to:
 1. Convert actionable ideas into Issues.
 1. Close the loop by linking resolved PRs back into the discussion thread.
 1. Remove secrets, tokens, or sensitive information immediately if posted.
+
+## Weekly Check-In Signal
+
+Use a consistent progress signal each week:
+
+1. Open the latest weekly check-in issue (auto-created by workflow).
+2. Ask learners to post progress or blockers.
+3. Link blocked learners to exact docs path and one next step.
+4. Roll unresolved blockers into monthly recap for process improvements.
 
 ## Response Time Expectations
 

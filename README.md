@@ -23,6 +23,7 @@ Quick links:
 - Local engagement dashboard tutorial: `docs/DASHBOARD_TUTORIAL.md`
 - Good first issues backlog: `docs/GOOD_FIRST_ISSUES.md`
 - Labels and triage guide: `docs/LABELS_GUIDE.md`
+- Weekly check-in template: `docs/templates/WEEKLY_CHECKIN_TEMPLATE.md`
 - Start Here discussion: `https://github.com/dkupratis-debug/FlaskAppEnhanced/discussions/29`
 - Contributing workflow: `CONTRIBUTING.md`
 - Security reporting: `SECURITY.md`
@@ -62,6 +63,7 @@ Quick links:
 - [Local Engagement Dashboard (Maintainer)](#local-engagement-dashboard-maintainer)
 - [Learn GitHub Using This Repo](#learn-github-using-this-repo)
 - [Documentation Standards](#documentation-standards)
+- [Docs QA Automation](#docs-qa-automation)
 - [GitHub Page Anatomy (Quick Reference)](#github-page-anatomy-quick-reference)
 - [Security Notes](#security-notes)
 
@@ -426,6 +428,17 @@ Start here:
 For contributors updating docs:
 
 - `docs/DOCUMENTATION_STANDARDS.md`
+
+## Docs QA Automation
+Automated docs checks are configured to prevent navigation/render regressions:
+
+- Workflow: `.github/workflows/docs_quality.yml`
+- Script: `tools/docs_audit.py`
+
+Current checks:
+1. Required docs exist
+2. Required docs are linked in `docs/INDEX.md`
+3. Markdown fences are balanced
 
 ## GitHub Setup Status (Example Repo)
 This repository is configured as a practical GitHub example and includes:

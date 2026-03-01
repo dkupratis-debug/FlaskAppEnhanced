@@ -20,6 +20,7 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const now = new Date();
+            const since = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
             const title = `Monthly Community Recap (${now.toISOString().slice(0, 7)})`;
 
             const openIssues = await github.paginate(github.rest.issues.listForRepo, {
@@ -34,6 +35,20 @@ jobs:
             const latest10 = recentRuns.slice(0, 10);
             const latestFailures = latest10.filter((r) => r.conclusion && r.conclusion !== "success").length;
 
+            const pulls = await github.paginate(github.rest.pulls.list, {
+              owner, repo, state: "all", sort: "updated", direction: "desc", per_page: 100
+            });
+            const recentPulls = pulls.filter((pr) => new Date(pr.created_at) >= since);
+            const firstTimePrs = recentPulls.filter((pr) =>
+              pr.author_association === "FIRST_TIMER" || pr.author_association === "FIRST_TIME_CONTRIBUTOR"
+            ).length;
+            const uniqueLearnerContributors = new Set(
+              recentPulls
+                .filter((pr) => !pr.user?.login?.endsWith("[bot]"))
+                .map((pr) => pr.user?.login)
+                .filter(Boolean)
+            ).size;
+
             const body = [
               "# Monthly Community Recap",
               "",
@@ -43,6 +58,8 @@ jobs:
               `- Open issues: ${openIssueCount}`,
               `- Open pull requests: ${openPrCount}`,
               `- Latest 10 workflow runs with non-success conclusion: ${latestFailures}`,
+              `- First-time contributor PRs (last 30 days): ${firstTimePrs}`,
+              `- Unique non-bot PR contributors (last 30 days): ${uniqueLearnerContributors}`,
               "",
               "## Review Checklist",
               "- [ ] Share one highlight from this month",
