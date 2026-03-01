@@ -14,12 +14,18 @@ function Resolve-Python {
         return $Requested
     }
 
+    $localAppData = [Environment]::GetFolderPath("LocalApplicationData")
     $candidates = @(
-        "C:\Users\kupra\AppData\Local\Programs\Python\Python312\python.exe",
-        "C:\Users\kupra\AppData\Local\Programs\Python\Python313\python.exe"
+        (Join-Path $localAppData "Programs\Python\Python312\python.exe"),
+        (Join-Path $localAppData "Programs\Python\Python313\python.exe")
     )
     foreach ($py in $candidates) {
         if (Test-Path $py) { return $py }
+    }
+
+    # Fallback to python launcher if available.
+    if (Get-Command py -ErrorAction SilentlyContinue) {
+        return "py -3"
     }
     return "python"
 }
@@ -31,7 +37,11 @@ $args = @("-m", "build")
 if ($NoIsolation) { $args += "--no-isolation" }
 
 try {
-    & $py @args
+    if ($py -eq "py -3") {
+        & py -3 @args
+    } else {
+        & $py @args
+    }
     Write-Host "Build succeeded."
     exit 0
 }
