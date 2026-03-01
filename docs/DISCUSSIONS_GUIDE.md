@@ -2,6 +2,19 @@
 
 Use GitHub Discussions for learner questions, ideas, and progress updates.
 
+## Audience
+
+- Learners asking questions
+- Maintainers moderating community threads
+
+## Expected Outcome
+
+After this guide, you should be able to:
+
+1. Post in the correct discussion category
+2. Moderate discussions with clear response standards
+3. Convert actionable discussions into tracked issues/PRs
+
 ## Start Here
 
 - Start Here discussion: `https://github.com/dkupratis-debug/FlaskAppEnhanced/discussions/29`

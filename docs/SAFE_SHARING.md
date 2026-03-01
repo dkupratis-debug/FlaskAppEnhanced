@@ -2,6 +2,19 @@
 
 This guide is for sharing the repo with friends (for example on Facebook) while minimizing risk.
 
+## Audience
+
+- Owners sharing the project publicly
+- Maintainers approving external contributions
+
+## Expected Outcome
+
+After this guide, you should be able to:
+
+1. Share the repository safely in public
+2. Keep contributor access scoped and controlled
+3. Explain what people can do without write access
+
 ## Key Point: Viewing a Repo Is Not the Same as Having Write Access
 People cannot push changes to your repository unless you grant them write/admin access.
 

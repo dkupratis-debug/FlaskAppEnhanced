@@ -2,6 +2,18 @@
 
 Use this as the maintainer routine for running the repo as a training program.
 
+## Audience
+
+- Repository maintainers and program owners
+
+## Expected Outcome
+
+After following this playbook, maintainers should be able to:
+
+1. Run weekly/monthly operations consistently
+2. Respond to learners with clear triage priorities
+3. Improve training quality based on engagement signals
+
 ## Weekly Cadence
 
 1. Review engagement:
@@ -18,6 +30,7 @@ Use this as the maintainer routine for running the repo as a training program.
 2. Review open security alerts.
 3. Refresh `docs/FAQ.md` based on repeated learner blockers.
 4. Add one new practice example.
+5. Open and complete the monthly recap issue (manual or workflow-generated).
 
 ## Suggested Training KPIs
 
