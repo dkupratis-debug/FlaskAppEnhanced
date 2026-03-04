@@ -6,6 +6,29 @@ All notable changes to this project will be documented in this file.
 
 - No changes yet.
 
+## [0.3.1] - 2026-03-04
+
+### Added
+- Docs quality workflow (`.github/workflows/docs_quality.yml`) to validate documentation structure in CI.
+- Weekly learner check-in workflow (`.github/workflows/weekly_checkin_issue.yml`).
+- Weekly check-in template (`docs/templates/WEEKLY_CHECKIN_TEMPLATE.md`).
+- Docs audit utility (`tools/docs_audit.py`) for required docs, index links, and Markdown fence checks.
+
+### Changed
+- Enhanced monthly recap workflow (`.github/workflows/monthly_recap_issue.yml`) with first-time contributor and unique non-bot contributor metrics.
+- Expanded training and engagement docs:
+  - `docs/TRAINING_OPERATIONS.md`
+  - `docs/DISCUSSIONS_GUIDE.md`
+  - `docs/ENGAGEMENT_AUTOMATION.md`
+  - `docs/INDEX.md`
+  - `README.md`
+- Updated protection-related documentation to align with live branch rules.
+- Made `tools/build_local.ps1` more portable by removing hardcoded user-specific Python paths.
+
+### Fixed
+- Corrected Markdown code-fence parsing in `tools/docs_audit.py` to handle nested/variable-length fences without false positives.
+- Fixed lint compliance in docs audit script import ordering.
+
 ## [0.3.0] - 2026-02-28
 
 ### Added
