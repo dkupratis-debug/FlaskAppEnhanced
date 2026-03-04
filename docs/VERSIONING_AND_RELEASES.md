@@ -5,7 +5,7 @@ This repo uses semantic versioning:
 
 ## How Versions Are Used Here
 - Git tags: `v0.2.3`
-- Python package version: `pyproject.toml` -> `project.version = "0.2.3"`
+- Python package version: `pyproject.toml` -> `project.version = "0.3.1"`
 - GitHub Release title/tag: created from the pushed tag
 
 ## Important Guard (Implemented)

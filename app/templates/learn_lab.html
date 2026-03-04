@@ -109,18 +109,18 @@
         steps: [
           {
             title: "Create version tag",
-            command: "git tag v0.3.0",
+            command: "git tag v0.3.1",
             output: "Tag created locally."
           },
           {
             title: "Push tag",
-            command: "git push origin v0.3.0",
+            command: "git push origin v0.3.1",
             output: "Release workflow triggered."
           },
           {
             title: "Verify release",
             command: "gh release list --limit 5",
-            output: "v0.3.0  Latest"
+            output: "v0.3.1  Latest"
           }
         ]
       }
