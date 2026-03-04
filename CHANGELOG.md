@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-- No changes yet.
+- Fixed package version alignment to `0.3.1` so release tag validation matches workflow expectations.
 
 ## [0.3.1] - 2026-03-04
 
