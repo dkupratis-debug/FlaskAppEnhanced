@@ -81,4 +81,3 @@ def test_step_detects_self_collision():
 def test_random_free_cell_raises_when_board_is_full():
     with pytest.raises(ValueError, match="No free cells"):
         random_free_cell(((0, 0),), Random(1), width=1, height=1)
-
