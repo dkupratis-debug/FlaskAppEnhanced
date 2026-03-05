@@ -87,3 +87,4 @@ def test_snake_page_loads():
     assert b"Snake" in res.data
     assert b"Arrow keys or WASD" in res.data
     assert b"snake-grid" in res.data
+    assert b"static/snake.js" in res.data

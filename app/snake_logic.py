@@ -91,7 +91,16 @@ def step_state(
 
     if ate_food:
         next_snake = (next_head,) + state.snake
-        next_food = random_free_cell(next_snake, random_source, width, height)
+        try:
+            next_food = random_free_cell(next_snake, random_source, width, height)
+        except ValueError:
+            return SnakeState(
+                snake=next_snake,
+                direction=direction,
+                food=next_head,
+                score=state.score + 1,
+                game_over=True,
+            )
         return SnakeState(
             snake=next_snake,
             direction=direction,
@@ -108,3 +117,4 @@ def step_state(
         score=state.score,
         game_over=False,
     )
+

@@ -81,3 +81,18 @@ def test_step_detects_self_collision():
 def test_random_free_cell_raises_when_board_is_full():
     with pytest.raises(ValueError, match="No free cells"):
         random_free_cell(((0, 0),), Random(1), width=1, height=1)
+
+def test_step_handles_full_board_after_eating_food():
+    state = SnakeState(
+        snake=((1, 0), (0, 0), (0, 1)),
+        direction="right",
+        food=(1, 1),
+        score=3,
+        game_over=False,
+    )
+
+    next_state = step_state(state, requested_direction="down", rng=Random(1), width=2, height=2)
+
+    assert next_state.game_over
+    assert next_state.score == 4
+    assert len(next_state.snake) == 4
