@@ -117,4 +117,3 @@ def step_state(
         score=state.score,
         game_over=False,
     )
-
