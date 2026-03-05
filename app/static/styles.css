@@ -116,3 +116,55 @@ h2 {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 16px;
 }
+
+.snake-card {
+  display: grid;
+  gap: 12px;
+}
+
+.snake-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.snake-header p {
+  margin: 0;
+}
+
+.snake-grid {
+  display: grid;
+  grid-template-columns: repeat(20, minmax(0, 1fr));
+  width: min(100%, 420px);
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--border);
+  background: #f9fafb;
+}
+
+.snake-cell {
+  border: 1px solid #eef0f2;
+}
+
+.snake-body {
+  background: #2a6f97;
+}
+
+.snake-head {
+  background: #1f5777;
+}
+
+.snake-food {
+  background: #d64545;
+}
+
+.snake-actions,
+.snake-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.snake-controls button {
+  min-width: 72px;
+}
