@@ -158,10 +158,28 @@
 
   document.addEventListener("keydown", (event) => {
     const key = event.key.toLowerCase();
-    if (key === "arrowup" || key === "w") setDirection("up");
-    if (key === "arrowdown" || key === "s") setDirection("down");
-    if (key === "arrowleft" || key === "a") setDirection("left");
-    if (key === "arrowright" || key === "d") setDirection("right");
+
+    if (key === "arrowup") {
+      event.preventDefault();
+      setDirection("up");
+    }
+    if (key === "arrowdown") {
+      event.preventDefault();
+      setDirection("down");
+    }
+    if (key === "arrowleft") {
+      event.preventDefault();
+      setDirection("left");
+    }
+    if (key === "arrowright") {
+      event.preventDefault();
+      setDirection("right");
+    }
+
+    if (key === "w") setDirection("up");
+    if (key === "s") setDirection("down");
+    if (key === "a") setDirection("left");
+    if (key === "d") setDirection("right");
     if (key === " " || key === "p") {
       event.preventDefault();
       togglePause();
@@ -185,3 +203,4 @@
 
   render(state);
 })();
+

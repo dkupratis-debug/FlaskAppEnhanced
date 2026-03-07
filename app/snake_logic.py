@@ -26,7 +26,7 @@ OPPOSITES = {
 class SnakeState:
     snake: tuple[tuple[int, int], ...]
     direction: str
-    food: tuple[int, int]
+    food: tuple[int, int] | None
     score: int
     game_over: bool
 
@@ -44,6 +44,11 @@ def random_free_cell(
 def create_initial_state(
     rng: Random | None = None, width: int = GRID_WIDTH, height: int = GRID_HEIGHT
 ) -> SnakeState:
+    if width < START_LENGTH or height < 1:
+        raise ValueError(
+            f"Board dimensions must be at least {START_LENGTH}x1 to fit the starting snake."
+        )
+
     random_source = rng or Random()
     center_x = width // 2
     center_y = height // 2
@@ -77,7 +82,7 @@ def step_state(
     next_head = (head_x + dx, head_y + dy)
 
     out_of_bounds = not (0 <= next_head[0] < width and 0 <= next_head[1] < height)
-    ate_food = next_head == state.food
+    ate_food = state.food is not None and next_head == state.food
     body_to_check = state.snake if ate_food else state.snake[:-1]
     hit_self = next_head in body_to_check
     if out_of_bounds or hit_self:
@@ -97,7 +102,7 @@ def step_state(
             return SnakeState(
                 snake=next_snake,
                 direction=direction,
-                food=next_head,
+                food=None,
                 score=state.score + 1,
                 game_over=True,
             )

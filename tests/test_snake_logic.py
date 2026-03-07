@@ -15,6 +15,11 @@ def test_create_initial_state_uses_expected_shape():
     assert not state.game_over
 
 
+def test_create_initial_state_rejects_boards_that_cannot_fit_starting_snake():
+    with pytest.raises(ValueError, match="Board dimensions"):
+        create_initial_state(Random(7), width=2, height=2)
+
+
 def test_step_moves_forward_without_growth():
     state = SnakeState(
         snake=((4, 4), (3, 4), (2, 4)),
@@ -82,6 +87,7 @@ def test_random_free_cell_raises_when_board_is_full():
     with pytest.raises(ValueError, match="No free cells"):
         random_free_cell(((0, 0),), Random(1), width=1, height=1)
 
+
 def test_step_handles_full_board_after_eating_food():
     state = SnakeState(
         snake=((1, 0), (0, 0), (0, 1)),
@@ -96,3 +102,4 @@ def test_step_handles_full_board_after_eating_food():
     assert next_state.game_over
     assert next_state.score == 4
     assert len(next_state.snake) == 4
+    assert next_state.food is None
