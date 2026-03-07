@@ -25,4 +25,3 @@ jobs:
 
       - name: Lint GitHub workflows
         uses: reviewdog/action-actionlint@v1
-
