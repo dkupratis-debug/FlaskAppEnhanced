@@ -31,4 +31,3 @@ Welcome to the project wiki.
 
 - Discussions: <https://github.com/dkupratis-debug/FlaskAppEnhanced/discussions>
 - Issues: <https://github.com/dkupratis-debug/FlaskAppEnhanced/issues>
-
