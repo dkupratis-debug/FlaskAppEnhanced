@@ -112,4 +112,3 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Request-ID logging filter crash outside request context during app startup
 - Rate limit default parsing for `Flask-Limiter`
-
