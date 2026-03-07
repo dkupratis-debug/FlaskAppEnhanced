@@ -5,9 +5,9 @@ Welcome to the project wiki.
 ## Start Here
 
 - Main repository: <https://github.com/dkupratis-debug/FlaskAppEnhanced>
-- Beginner guide: [docs/START_HERE.md](https://github.com/dkupratis-debug/FlaskAppEnhanced/blob/main/docs/START_HERE.md)
-- First 10 minutes: [docs/FIRST_10_MINUTES.md](https://github.com/dkupratis-debug/FlaskAppEnhanced/blob/main/docs/FIRST_10_MINUTES.md)
-- Practice examples: [docs/PRACTICE_EXAMPLES.md](https://github.com/dkupratis-debug/FlaskAppEnhanced/blob/main/docs/PRACTICE_EXAMPLES.md)
+- Beginner guide: [docs/START_HERE.md](docs/START_HERE.md)
+- First 10 minutes: [docs/FIRST_10_MINUTES.md](docs/FIRST_10_MINUTES.md)
+- Practice examples: [docs/PRACTICE_EXAMPLES.md](docs/PRACTICE_EXAMPLES.md)
 
 ## Wiki Pages
 
@@ -24,8 +24,8 @@ Welcome to the project wiki.
 
 ## Security and Contribution
 
-- Security policy: [SECURITY.md](https://github.com/dkupratis-debug/FlaskAppEnhanced/blob/main/SECURITY.md)
-- Contributing guide: [CONTRIBUTING.md](https://github.com/dkupratis-debug/FlaskAppEnhanced/blob/main/CONTRIBUTING.md)
+- Security policy: [SECURITY.md](SECURITY.md)
+- Contributing guide: [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Where to Ask Questions
 
