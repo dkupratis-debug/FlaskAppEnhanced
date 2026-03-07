@@ -4,9 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-- Fixed package version alignment to `0.3.1` so release tag validation matches workflow expectations.
+- No unreleased changes.
 
-## [0.3.1] - 2026-03-04
+## [0.3.2] - 2026-03-07
+
+### Fixed
+- Corrected Snake keyboard handling to prevent page scrolling on arrow-key input.
+- Ensured full-board Snake win states use no-food terminal state semantics.
+- Added starting-board validation to prevent out-of-bounds Snake initialization on undersized boards.
+- Fixed wiki page markdown EOF formatting to satisfy pre-commit and markdownlint checks.
+
+### Changed
+- Updated wiki home links to stable relative paths to avoid flaky link-check failures.`r`n`r`n## [0.3.1] - 2026-03-04
 
 ### Added
 - Docs quality workflow (`.github/workflows/docs_quality.yml`) to validate documentation structure in CI.
