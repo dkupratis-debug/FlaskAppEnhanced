@@ -223,7 +223,8 @@ Use this order if you want the clearest learning sequence:
 3. `docs/GITHUB_GUIDE.md`
 4. `docs/PRACTICE_EXAMPLES.md`
 5. `docs/CI_TROUBLESHOOTING_FLOW.md`
-6. `docs/TRAINING_OPERATIONS.md` (maintainers)
+6. `docs/EMERGENCY_MERGE_SOP.md` (maintainers/admins)
+7. `docs/TRAINING_OPERATIONS.md` (maintainers)
 
 ## Learning Path
 Use this repo as a hands-on GitHub + Flask lab.
