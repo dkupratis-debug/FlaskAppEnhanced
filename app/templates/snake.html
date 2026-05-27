@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>Snake</h1>
+  <p>Classic grid snake. Use Arrow keys or WASD. Press Space to pause.</p>
+
+  <div class="card snake-card" id="snake-game" data-config='{{ snake_config | tojson | forceescape }}'>
+    <div class="snake-header">
+      <p><strong>Score:</strong> <span id="snake-score">0</span></p>
+      <p><strong>Status:</strong> <span id="snake-status">Running</span></p>
+    </div>
+
+    <div class="snake-grid" id="snake-grid" aria-label="Snake game board"></div>
+
+    <div class="snake-actions">
+      <button type="button" id="snake-pause">Pause</button>
+      <button type="button" id="snake-restart">Restart</button>
+    </div>
+
+    <div class="snake-controls" aria-label="Touch controls">
+      <button type="button" data-direction="up">Up</button>
+      <button type="button" data-direction="left">Left</button>
+      <button type="button" data-direction="down">Down</button>
+      <button type="button" data-direction="right">Right</button>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='snake.js') }}"></script>
+{% endblock %}

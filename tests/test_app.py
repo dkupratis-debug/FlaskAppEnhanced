@@ -77,3 +77,14 @@ def test_production_requires_non_default_secret_key(monkeypatch):
     monkeypatch.delenv("SECRET_KEY", raising=False)
     with pytest.raises(RuntimeError, match="Production requires a strong SECRET_KEY"):
         create_app()
+
+
+def test_snake_page_loads():
+    app = create_app()
+    client = app.test_client()
+    res = client.get("/snake")
+    assert res.status_code == 200
+    assert b"Snake" in res.data
+    assert b"Arrow keys or WASD" in res.data
+    assert b"snake-grid" in res.data
+    assert b"static/snake.js" in res.data

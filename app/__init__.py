@@ -12,6 +12,7 @@ from flask_wtf import CSRFProtect
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from app.ratelimit import rate_limit_storage_uri
+from app.snake_logic import GRID_HEIGHT, GRID_WIDTH, START_LENGTH
 
 
 class RequestIdFilter(logging.Filter):
@@ -139,6 +140,19 @@ def create_app():
     @app.get("/learn-lab")
     def learn_lab():
         return render_template("learn_lab.html")
+
+
+    @app.get("/snake")
+    def snake():
+        return render_template(
+            "snake.html",
+            snake_config={
+                "width": GRID_WIDTH,
+                "height": GRID_HEIGHT,
+                "start_length": START_LENGTH,
+                "tick_ms": 150,
+            },
+        )
 
     @app.get("/submit")
     def submit_form():
