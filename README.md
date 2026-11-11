@@ -174,7 +174,6 @@ Other workflows in `.github/workflows/`:
 - `package.yml`: builds and pushes a GHCR image on `main`, on `v*` tags, and on manual dispatch.
 - `auto_label.yml`: applies labels from `.github/labeler.yml` on pull requests.
 - `first_time_contributor.yml`: posts a welcome on a first issue or pull request.
-- `weekly_checkin_issue.yml`, `weekly_leaderboard.yml`, and `monthly_recap_issue.yml`: open scheduled issues (also `workflow_dispatch`).
 - `playground_branch_generator.yml`: manual workflow that pushes a branch for a chosen failing check.
 
 Ruff selects rules `E`, `F`, and `I` with a line length of 100. `Makefile` calls `venv/bin/python` on Linux and macOS and `venv\Scripts\python.exe` on Windows, so the targets do not activate a shell. `tasks.ps1` remains the PowerShell runner. `make test` and `make lint` were run on Linux against the project venv.
