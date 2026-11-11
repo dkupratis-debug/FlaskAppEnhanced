@@ -1,0 +1,173 @@
+const storageKey = "flaskappenhanced-learn-lab-progress";
+const scenarios = {
+  "first-pr": {
+    goal: "Open your first clean PR and pass all required checks.",
+    success: "PR is open with green checks and ready for review.",
+    clicks: [
+      "Code -> branch selector -> create new branch",
+      "Commit small change on branch",
+      "Pull requests -> New pull request",
+      "Checks tab -> verify all green"
+    ],
+    steps: [
+      {
+        title: "Create branch",
+        command: "git checkout -b docs/my-first-change",
+        output: "Switched to a new branch 'docs/my-first-change'"
+      },
+      {
+        title: "Commit change",
+        command: "git add README.md && git commit -m \"Improve intro wording\"",
+        output: "[docs/my-first-change abc1234] Improve intro wording"
+      },
+      {
+        title: "Push and open PR",
+        command: "git push -u origin docs/my-first-change",
+        output: "Create a pull request by visiting the provided URL."
+      }
+    ]
+  },
+  "failing-ci": {
+    goal: "Diagnose and fix one failing CI job.",
+    success: "PR checks are green and merge gate unblocked.",
+    clicks: [
+      "Pull request -> Checks -> failing job",
+      "Open log -> copy first error",
+      "Fix locally -> push commit",
+      "Refresh PR -> verify green"
+    ],
+    steps: [
+      {
+        title: "Run local checks",
+        command: "pre-commit run --all-files",
+        output: "markdownlint........................................Failed"
+      },
+      {
+        title: "Fix and retest",
+        command: "pre-commit run --all-files",
+        output: "Passed"
+      },
+      {
+        title: "Validate tests",
+        command: "pytest -q tests",
+        output: "...... [100%]"
+      }
+    ]
+  },
+  "release-flow": {
+    goal: "Understand release/tag flow with protected v* tags.",
+    success: "You can explain tag protection and release workflow.",
+    clicks: [
+      "Actions -> Release workflow",
+      "Releases -> inspect latest notes/assets",
+      "Rulesets -> review tag protections",
+      "Tags -> confirm v* naming"
+    ],
+    steps: [
+      {
+        title: "Create version tag",
+        command: "git tag v0.3.1",
+        output: "Tag created locally."
+      },
+      {
+        title: "Push tag",
+        command: "git push origin v0.3.1",
+        output: "Release workflow triggered."
+      },
+      {
+        title: "Verify release",
+        command: "gh release list --limit 5",
+        output: "v0.3.1  Latest"
+      }
+    ]
+  }
+};
+
+const select = document.getElementById("scenario-select");
+const goal = document.getElementById("scenario-goal");
+const success = document.getElementById("scenario-success");
+const progress = document.getElementById("scenario-progress");
+const stepTitle = document.getElementById("step-title");
+const commandBox = document.getElementById("command-box");
+const outputBox = document.getElementById("output-box");
+const copyCommand = document.getElementById("copy-command");
+const copyOutput = document.getElementById("copy-output");
+const clickList = document.getElementById("click-list");
+const prev = document.getElementById("prev-step");
+const next = document.getElementById("next-step");
+const reset = document.getElementById("reset-step");
+
+let index = 0;
+
+function loadState() {
+  try {
+    return JSON.parse(localStorage.getItem(storageKey) || "{}");
+  } catch (_) {
+    return {};
+  }
+}
+
+function saveState(state) {
+  localStorage.setItem(storageKey, JSON.stringify(state));
+}
+
+function renderClicks(items) {
+  clickList.innerHTML = "";
+  items.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    clickList.appendChild(li);
+  });
+}
+
+function renderStep() {
+  const data = scenarios[select.value];
+  const step = data.steps[index];
+  stepTitle.textContent = "Step " + (index + 1) + " of " + data.steps.length + ": " + step.title;
+  commandBox.textContent = "$ " + step.command;
+  outputBox.textContent = step.output;
+  progress.textContent = Math.round(((index + 1) / data.steps.length) * 100) + "%";
+  prev.disabled = index === 0;
+  next.disabled = index === data.steps.length - 1;
+  const state = loadState();
+  state[select.value] = index;
+  saveState(state);
+}
+
+function renderScenario() {
+  const data = scenarios[select.value];
+  goal.textContent = data.goal;
+  success.textContent = data.success;
+  renderClicks(data.clicks);
+  const state = loadState();
+  index = Number.isInteger(state[select.value]) ? state[select.value] : 0;
+  if (index < 0 || index >= data.steps.length) index = 0;
+  renderStep();
+}
+
+select.addEventListener("change", renderScenario);
+prev.addEventListener("click", () => {
+  index -= 1;
+  renderStep();
+});
+next.addEventListener("click", () => {
+  index += 1;
+  renderStep();
+});
+reset.addEventListener("click", () => {
+  index = 0;
+  renderStep();
+});
+copyCommand.addEventListener("click", async () => {
+  const txt = commandBox.textContent.replace(/^\$\s*/, "");
+  await navigator.clipboard.writeText(txt);
+  copyCommand.textContent = "Copied";
+  setTimeout(() => (copyCommand.textContent = "Copy command"), 1000);
+});
+copyOutput.addEventListener("click", async () => {
+  await navigator.clipboard.writeText(outputBox.textContent);
+  copyOutput.textContent = "Copied";
+  setTimeout(() => (copyOutput.textContent = "Copy expected output"), 1000);
+});
+
+renderScenario();

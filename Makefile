@@ -1,30 +1,32 @@
+# Call the venv interpreter directly. No shell activation, so the same
+# targets work on Linux, macOS, and Windows.
+ifeq ($(OS),Windows_NT)
+PY_BOOT := python
+PY := venv/Scripts/python.exe
+ENV_RUN := set FLASK_ENV=production&&
+else
+PY_BOOT := $(shell command -v python3 >/dev/null 2>&1 && echo python3 || echo python)
+PY := venv/bin/python
+ENV_RUN := FLASK_ENV=production
+endif
+
 .PHONY: install dev test lint run prod
 
 install:
-	python -m venv venv
-	.\venv\Scripts\activate && pip install -r requirements.txt
-
-# Install dev dependencies
+	$(PY_BOOT) -m venv venv
+	$(PY) -m pip install -r requirements.txt
 
 dev:
-	.\venv\Scripts\activate && pip install -r requirements-dev.txt
-
-# Run tests
+	$(PY) -m pip install -r requirements-dev.txt
 
 test:
-	.\venv\Scripts\activate && pytest -q
-
-# Lint
+	$(PY) -m pytest -q
 
 lint:
-	.\venv\Scripts\activate && ruff check .
-
-# Run dev server
+	$(PY) -m ruff check .
 
 run:
-	.\venv\Scripts\activate && python app.py
-
-# Run production server
+	$(PY) app.py
 
 prod:
-	$env:FLASK_ENV="production"; .\venv\Scripts\activate; gunicorn -c gunicorn.conf.py wsgi:app
+	$(ENV_RUN) $(PY) -m gunicorn -c gunicorn.conf.py wsgi:app

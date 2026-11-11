@@ -2,6 +2,11 @@
 
 {% block content %}
   <h1>Sample Form</h1>
+  {% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+      <p class="card" role="status">{{ message }}</p>
+    {% endfor %}
+  {% endwith %}
   <form method="post" action="/submit" class="card">
     <label for="name">Name</label>
     <input id="name" name="name" type="text" placeholder="Your name" />
