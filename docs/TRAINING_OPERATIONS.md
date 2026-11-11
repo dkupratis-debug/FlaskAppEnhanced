@@ -30,7 +30,7 @@ After following this playbook, maintainers should be able to:
 2. Review open security alerts.
 3. Refresh `docs/FAQ.md` based on repeated learner blockers.
 4. Add one new practice example.
-5. Open and complete the monthly recap issue (manual or workflow-generated).
+5. Open and complete a monthly recap using `docs/templates/MONTHLY_RECAP_TEMPLATE.md`.
 
 ## Suggested Training KPIs
 
@@ -54,8 +54,9 @@ Use these baseline targets to keep training outcomes measurable:
 Track these with:
 
 - `Insights -> Traffic`
-- weekly check-in issues (`.github/workflows/weekly_checkin_issue.yml`)
-- monthly recap issue (`.github/workflows/monthly_recap_issue.yml`)
+- learner issues and pull requests
+- `docs/templates/WEEKLY_CHECKIN_TEMPLATE.md`
+- `docs/templates/MONTHLY_RECAP_TEMPLATE.md`
 
 ## Support Priority Triage
 
