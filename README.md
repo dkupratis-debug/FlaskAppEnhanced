@@ -10,12 +10,12 @@ Small Flask app for learning a minimal web service: a few HTML pages, a CSRF for
 
 - `GET /` renders the home page.
 - `GET /health` returns JSON `{"status": "ok"}` and is exempt from rate limits.
-- `GET /submit` renders a name form with a hidden CSRF token. `POST /submit` reads `name` (blank becomes `anonymous`) and returns JSON such as `{"message": "Thanks, Ada."}`.
+- `GET /submit` renders a name form with a hidden CSRF token. `POST /submit` reads the form field `name` (blank becomes `anonymous`). A browser form post (Accept prefers `text/html`) redirects back to the form and shows `Thanks, {name}.` Requests that do not prefer HTML (`Accept: application/json`, `Accept: */*`, a JSON content type, or no Accept header) still get a JSON body. A form field `name=Ada` with one of those Accept values returns `{"message": "Thanks, Ada."}`.
 - `POST /api/echo` is CSRF-exempt, has a route limit of `30 per minute`, and returns the JSON body as `{"received": ...}`.
 - Flask-Limiter applies the default limits `200 per day` and `50 per hour`, with `X-RateLimit-*` headers. Storage defaults to `memory://`.
 - Responses set `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: no-referrer`, and `Content-Security-Policy` (default `default-src 'self'`).
-- Each request gets an `X-Request-Id` (incoming header or a new UUID). Access logs are one JSON object per request, with method, path, status, duration, and a remote field.
-- `GET /learn`, `GET /learn-lab`, and `GET /launch` render learning pages. The learn and lab templates include inline scripts and `localStorage` keys.
+- Each request gets an `X-Request-Id` (incoming header or a new UUID). Access logs are one JSON object per request, with method, path, status, duration, and remote. `remote` is `remote_addr` unless `TRUST_PROXY_COUNT` is greater than 0, in which case it is the `X-Forwarded-For` value when that header is present.
+- `GET /learn`, `GET /learn-lab`, and `GET /launch` render learning pages. `/learn` and `/learn-lab` load `/static/learn.js` and `/static/learn_lab.js`. Those scripts use `localStorage` keys `flaskappenhanced-learning-progress` and `flaskappenhanced-learn-lab-progress`.
 - With `FLASK_ENV=production`, startup fails if `SECRET_KEY` is empty or still `dev-not-secret`.
 
 ## Tech stack
@@ -39,7 +39,7 @@ Sample form (`GET /submit`):
 
 ![Sample form](docs/screenshots/submit.png)
 
-Learning dashboard (`GET /learn`). The checklist is filled by an inline script. The default Content-Security-Policy blocks that script, so the checklist in this capture is empty:
+Learning dashboard (`GET /learn`). `/static/learn.js` fills the checklist. The default Content-Security-Policy is `default-src 'self'`, which allows that same-origin file:
 
 ![Learning dashboard](docs/screenshots/learn.png)
 
@@ -107,7 +107,7 @@ gunicorn -c gunicorn.conf.py wsgi:app
 
 ## Running tests
 
-Install dev dependencies, then run the same commands as the CI test job. Verified locally: `pytest` reported 8 passed, and `ruff check .` reported all checks passed.
+Install dev dependencies, then run the same commands as the CI test job. Verified locally on this branch: `pytest` reported 16 passed, and `ruff check .` reported all checks passed.
 
 ```bash
 python -m pip install -r requirements-dev.txt
@@ -134,7 +134,7 @@ python tools/docs_audit.py
 ## Project structure
 
 ```text
-app/                  Flask package: factory, routes, templates, static CSS
+app/                  Flask package: factory, routes, templates, static CSS and JS
 app/ratelimit.py      Rate-limit storage URI, with a production memory warning
 tests/test_app.py     Pytest suite
 config.py             Development and production settings
@@ -146,7 +146,7 @@ render.yaml           Render blueprint
 requirements.txt      Runtime dependencies
 requirements-dev.txt  Test and lint dependencies
 pyproject.toml        Package metadata, pytest, and ruff settings
-Makefile              Task names; commands use Windows venv paths
+Makefile              Cross-platform tasks; calls the venv Python directly
 tasks.ps1             PowerShell tasks: install, dev, test, lint, run, prod
 tools/docs_audit.py   Docs existence, index links, and fence check
 tools/dashboard/      Local GitHub metrics UI (see its README)
@@ -174,20 +174,19 @@ Other workflows in `.github/workflows/`:
 - `package.yml`: builds and pushes a GHCR image on `main`, on `v*` tags, and on manual dispatch.
 - `auto_label.yml`: applies labels from `.github/labeler.yml` on pull requests.
 - `first_time_contributor.yml`: posts a welcome on a first issue or pull request.
-- `weekly_checkin_issue.yml`, `weekly_leaderboard.yml`, and `monthly_recap_issue.yml`: open scheduled issues (also `workflow_dispatch`).
 - `playground_branch_generator.yml`: manual workflow that pushes a branch for a chosen failing check.
 
-Ruff selects rules `E`, `F`, and `I` with a line length of 100. `Makefile` targets call `.\venv\Scripts\activate`, so `make test` fails under `/bin/sh` on Linux. Use the commands above, or `tasks.ps1` on Windows.
+Ruff selects rules `E`, `F`, and `I` with a line length of 100. `Makefile` calls `venv/bin/python` on Linux and macOS and `venv\Scripts\python.exe` on Windows, so the targets do not activate a shell. `tasks.ps1` remains the PowerShell runner. `make test` and `make lint` were run on Linux against the project venv.
 
 ## Design notes
 
 - `create_app()` picks `DevelopmentConfig` or `ProductionConfig` from `FLASK_ENV`. Session cookies are `HttpOnly` and `SameSite=Lax`. The secure flag is on only in production.
 - CSRF protection is on for the app. The form posts a `csrf_token` field. `/api/echo` is marked CSRF-exempt.
-- A `POST /submit` without a CSRF token currently returns HTTP 500. CSRF runs in an earlier `before_request` than the request-id hook, and the later `after_request` reads `g.request_id` and raises `AttributeError`. With debug mode on, the response is the Werkzeug debugger page.
-- The default CSP is `default-src 'self'`. Chrome reports that the inline script on `/learn` violates that policy, and the checklist stays empty. `/learn-lab` uses an inline script in the same way.
-- Request logs prefer the `X-Forwarded-For` header when it is present. `ProxyFix` changes `remote_addr` only when `TRUST_PROXY_COUNT` is greater than 0.
-- There is no database. Learning progress is stored in the browser under `localStorage` keys in the page scripts.
-- The test suite covers the main pages, the echo payload, the presence of the CSRF field, security headers on `/`, and the production secret check. It does not cover a missing CSRF token, rate-limit exhaustion, or the learning-page scripts.
+- A missing or invalid CSRF token returns HTTP 400. Clients that prefer HTML get a short page; other clients get JSON `{"error": "..."}`. The request-id hook is registered before CSRF. If that hook did not run, `after_request` still sets `X-Request-Id` and writes the access log.
+- The default CSP is `default-src 'self'` and does not include `unsafe-inline`. `/learn` and `/learn-lab` load scripts from `/static/`, which that policy allows.
+- Request logs use `remote_addr` when `TRUST_PROXY_COUNT` is 0, so a client-supplied `X-Forwarded-For` is not copied into the log. When the count is greater than 0, the log records `X-Forwarded-For` if present, and `ProxyFix` is enabled with that hop count.
+- There is no database. Learning progress is stored in the browser under the `localStorage` keys above.
+- Tests cover the pages, echo payload, CSRF field, missing and invalid CSRF tokens, external learn scripts and the CSP header, proxy log handling, browser versus JSON submit responses, security headers on `/`, and the production secret check. They do not cover rate-limit exhaustion.
 - Maximum request body size defaults to 1 MiB (`MAX_CONTENT_LENGTH`). CSRF tokens expire after 3600 seconds unless `WTF_CSRF_TIME_LIMIT` is set.
 
 ## License

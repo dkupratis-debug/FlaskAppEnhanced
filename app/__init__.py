@@ -5,10 +5,21 @@ import time
 import uuid
 from logging.handlers import RotatingFileHandler
 
-from flask import Flask, g, has_request_context, jsonify, render_template, request
+from flask import (
+    Flask,
+    flash,
+    g,
+    has_request_context,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_wtf import CSRFProtect
+from flask_wtf.csrf import CSRFError
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from app.ratelimit import rate_limit_storage_uri
@@ -53,6 +64,19 @@ def _normalize_limits(value):
     return ["200 per day", "50 per hour"]
 
 
+def _wants_json_response():
+    """JSON for API and fetch clients; HTML for a normal browser navigation.
+
+    Browsers send Accept: text/html at a higher quality than JSON. A JSON body,
+    Accept: application/json, or Accept: */* (fetch and curl) keeps JSON.
+    """
+    if request.is_json:
+        return True
+    json_quality = request.accept_mimetypes["application/json"]
+    html_quality = request.accept_mimetypes["text/html"]
+    return json_quality >= html_quality
+
+
 def _validate_production_secret_key(app, env):
     if env != "production":
         return
@@ -91,6 +115,11 @@ def create_app():
     app.logger.addHandler(handler)
     app.logger.setLevel(logging.INFO)
 
+    @app.before_request
+    def attach_request_id():
+        g.request_id = request.headers.get("X-Request-Id", str(uuid.uuid4()))
+        g.start_time = time.time()
+
     csrf = CSRFProtect(app)
 
     app.config["RATELIMIT_DEFAULT"] = _normalize_limits(app.config.get("RATELIMIT_DEFAULT"))
@@ -103,15 +132,20 @@ def create_app():
         storage_uri=rate_limit_storage_uri(app.config, app.logger),
     )
 
-    @app.before_request
-    def attach_request_id():
-        g.request_id = request.headers.get("X-Request-Id", str(uuid.uuid4()))
-        g.start_time = time.time()
-
     @app.after_request
     def add_request_id_header(response):
-        response.headers.setdefault("X-Request-Id", g.request_id)
-        duration_ms = int((time.time() - g.start_time) * 1000)
+        # before_request may not have run (for example an earlier hook aborted).
+        request_id = getattr(g, "request_id", None)
+        if not request_id:
+            request_id = request.headers.get("X-Request-Id") or str(uuid.uuid4())
+            g.request_id = request_id
+        response.headers.setdefault("X-Request-Id", request_id)
+        start_time = getattr(g, "start_time", None)
+        duration_ms = 0 if start_time is None else int((time.time() - start_time) * 1000)
+        if trust_proxy_count > 0:
+            remote = request.headers.get("X-Forwarded-For", request.remote_addr)
+        else:
+            remote = request.remote_addr
         app.logger.info(
             "request",
             extra={
@@ -119,10 +153,17 @@ def create_app():
                 "path": request.path,
                 "status": response.status_code,
                 "duration_ms": duration_ms,
-                "remote": request.headers.get("X-Forwarded-For", request.remote_addr),
+                "remote": remote,
             },
         )
         return response
+
+    @app.errorhandler(CSRFError)
+    def handle_csrf_error(error):
+        message = error.description or "CSRF validation failed."
+        if _wants_json_response():
+            return jsonify(error=message), 400
+        return render_template("error.html", title="Bad Request", message=message), 400
 
     @app.get("/")
     def home():
@@ -147,7 +188,11 @@ def create_app():
     @app.post("/submit")
     def handle_submit():
         name = request.form.get("name", "anonymous").strip() or "anonymous"
-        return jsonify(message=f"Thanks, {name}.")
+        message = f"Thanks, {name}."
+        if _wants_json_response():
+            return jsonify(message=message)
+        flash(message)
+        return redirect(url_for("submit_form"))
 
     @app.post("/api/echo")
     @limiter.limit("30 per minute")
